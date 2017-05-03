@@ -34,8 +34,8 @@ public class Main {
 		final int QUIT = 4;
 		
 		//Erzeuge Menü
-		Menu mainMenu = new Menu("Hauptmenü");
-		mainMenu.addEntry("Makler-Verwaltung", MENU_MAKLER);
+		Menu mainMenu = new Menu("Main Menu");
+		mainMenu.addEntry("Makler-Administration", MENU_MAKLER);
 		mainMenu.addEntry("Personen-Verwaltung", MENU_PERSON);
 		mainMenu.addEntry("Immobilien-Verwaltung", MENU_IMMO);
 		mainMenu.addEntry("Vertragsmenü", MENU_VERTRAG);
