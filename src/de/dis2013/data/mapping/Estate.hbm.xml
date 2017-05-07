@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="de.dis2013.data.Estate" table="estate">
+        <id name="estateid" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="square_area" type="double" column="square_area" />
+        <property name="estateaddress" type="string" column="estateaddress" />
+        <many-to-one name="agent" class="de.dis2013.data.Makler" column="agentid" not-null="true"></many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="de.dis2013.data.TenancyContract" table="tenancycontract">
+        <id name="id" column="id">
+            <generator class="foreign">
+                <param name="property">contractid</param>
+            </generator>
+        </id>
+        <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
+        <property name="startDate" type="string" column="startDate" />
+        <property name="duration" type="int" column="duration" />
+        <property name="extracharges" type="double" column="extracharges" />
+    </class>
+</hibernate-mapping>

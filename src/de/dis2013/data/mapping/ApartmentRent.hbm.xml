@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="de.dis2013.data.ApartmentRent" table="appartmentrent">
+        <id name="contractid" column="contractid">
+            <generator class="foreign">
+                <param name="property">contractid</param>
+            </generator>
+        </id>
+        <id name="onwerid" column="ownerid">
+            <generator class="foreign">
+                <param name="property">ownerid</param>
+            </generator>
+        </id>
+        <id name="apartmentid" column="apartmentid">
+            <generator class="foreign">
+                <param name="property">aparmentid</param>
+            </generator>
+        </id>
+        <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
+        <one-to-one name="ownerid" class="de.dis2013.data.Owner" constrained="true"></one-to-one>
+        <one-to-one name="apartmentid" class="de.dis2013.data.Apartment" constrained="true"></one-to-one>
+    </class>
+</hibernate-mapping>
+
+
+

@@ -10,6 +10,5 @@
         <property name="ownername" type="string" column="onwername" />
         <property name="ownersurname" type="string" column="contractdate" />
         <property name="address" type="string" column="address" />
-
     </class>
 </hibernate-mapping>

@@ -9,5 +9,7 @@
         </id>
         <property name="settelmentplace" type="string" column="settlemtnplace" />
         <property name="contractdate" type="string" column="contractdate" />
+        <one-to-one name="purchaseContract" class="de.dis2013.data.PurchaseContractContract" cascade="save-update"></one-to-one>
+        <one-to-one name="tenancyContract" class="de.dis2013.data.TenancyContract" cascade="save-update"></one-to-one>
     </class>
 </hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="de.dis2013.data.Apartment" table="appartment">
+        <id name="apartmentid" column="id_a">
+            <generator class="increment"/>
+        </id>
+        <property name="floor" type="int" column="floor" />
+        <property name="rent" type="int" column="rent_t" />
+        <property name="rooms" type="int" column="rooms" />
+        <property name="kitchen" type="int" column="kitchen" />
+        <property name="balcony" type="int" column="balcony" />
+    </class>
+</hibernate-mapping>
+
+
+
