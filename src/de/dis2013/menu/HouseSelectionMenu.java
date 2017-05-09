@@ -3,7 +3,7 @@ package de.dis2013.menu;
 import java.util.Iterator;
 import java.util.Set;
 
-import de.dis2013.data.Haus;
+import de.dis2013.data.House;
 
 /**
  * Ein kleines Menü, dass alle Häuser aus einem Set zur Auswahl anzeigt
@@ -11,14 +11,14 @@ import de.dis2013.data.Haus;
 public class HouseSelectionMenu extends Menu {
 	public static final int BACK = -1;
 	
-	public HouseSelectionMenu(String title, Set<Haus> haeuser) {
+	public HouseSelectionMenu(String title, Set<House> houses) {
 		super(title);
 		
-		Iterator<Haus> it = haeuser.iterator();
+		Iterator<House> it = houses.iterator();
 		while(it.hasNext()) {
-			Haus h = it.next();
-			addEntry(h.getStrasse()+" "+h.getHausnummer()+", "+h.getPlz()+" "+h.getOrt(), h.getId());
+			House h = it.next();
+			addEntry(h.getEstateaddress(), h.getEstateid());
 		}
-		addEntry("Zurück", BACK);
+		addEntry("Back", BACK);
 	}
 }

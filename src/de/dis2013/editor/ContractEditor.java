@@ -8,7 +8,7 @@ import de.dis2013.data.*;
 import de.dis2013.menu.AppartmentSelectionMenu;
 import de.dis2013.menu.HouseSelectionMenu;
 import de.dis2013.menu.Menu;
-import de.dis2013.menu.PersonSelectionMenu;
+import de.dis2013.menu.OwnerSelectionMenu;
 import de.dis2013.util.FormUtil;
 
 /**
@@ -114,11 +114,11 @@ public class ContractEditor {
 			Set<Owner> owners = service.getAllOwners();
 			
 			//Menü zur Auswahl der Person
-			PersonSelectionMenu psm = new PersonSelectionMenu("Select an owner", owners);
+			OwnerSelectionMenu psm = new OwnerSelectionMenu("Select an owner", owners);
 			int pid = psm.show();
 			
 			//Falls kein Abbruch: Vertragsdaten abfragen und Vertrag anlegen
-			if(pid != PersonSelectionMenu.BACK) {
+			if(pid != OwnerSelectionMenu.BACK) {
 				TenancyContract m = new TenancyContract();
 		
 				m.setApartment(service.getApartmentById(wid));
@@ -154,11 +154,11 @@ public class ContractEditor {
 			Set<Owner> owners = service.getAllOwners();
 			
 			//Menü zur Auswahl der Person
-			PersonSelectionMenu psm = new PersonSelectionMenu("Select an Owner for Contract", owners);
+			OwnerSelectionMenu psm = new OwnerSelectionMenu("Select an Owner for Contract", owners);
 			int pid = psm.show();
 			
 			//Falls kein Abbruch: Vertragsdaten abfragen und Vertrag anlegen
-			if(pid != PersonSelectionMenu.BACK) {
+			if(pid != OwnerSelectionMenu.BACK) {
 				PurchaseContract k = new PurchaseContract();
 		
 				k.setHouse(service.getHouseById(hid));

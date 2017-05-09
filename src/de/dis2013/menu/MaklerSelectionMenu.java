@@ -19,6 +19,6 @@ public class MaklerSelectionMenu extends Menu {
 			Makler m = it.next();
 			addEntry(m.getName(), m.getId());
 		}
-		addEntry("Zurück", BACK);
+		addEntry("Back", BACK);
 	}
 }

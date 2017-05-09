@@ -3,7 +3,7 @@ package de.dis2013.editor;
 import de.dis2013.core.ImmoService;
 import de.dis2013.data.Person;
 import de.dis2013.menu.Menu;
-import de.dis2013.menu.PersonSelectionMenu;
+import de.dis2013.menu.OwnerSelectionMenu;
 import de.dis2013.util.FormUtil;
 
 /**
@@ -74,11 +74,11 @@ public class PersonEditor {
 	 */
 	public void editPerson() {
 		//Personenauswahlmenü
-		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllOwners());
+		Menu personSelectionMenu = new OwnerSelectionMenu("Person bearbeiten", service.getAllOwners());
 		int id = personSelectionMenu.show();
 		
 		//Person barbeiten?
-		if(id != PersonSelectionMenu.BACK) {
+		if(id != OwnerSelectionMenu.BACK) {
 			//Person laden
 			Person p = service.getOwnerById(id);
 			System.out.println("Person "+p.getVorname()+" "+p.getNachname()+" wird bearbeitet. Leere Felder bleiben unverändert.");
@@ -104,11 +104,11 @@ public class PersonEditor {
 	 */
 	public void deletePerson() {
 		//Auswahl der Person
-		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllOwners());
+		Menu personSelectionMenu = new OwnerSelectionMenu("Person bearbeiten", service.getAllOwners());
 		int id = personSelectionMenu.show();
 		
 		//Löschen, falls nicht "zurück" gewählt wurde
-		if(id != PersonSelectionMenu.BACK) {
+		if(id != OwnerSelectionMenu.BACK) {
 			Person p = service.getOwnerById(id);
 			service.deletePerson(p);
 		}
