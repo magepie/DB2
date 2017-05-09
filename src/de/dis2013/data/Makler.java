@@ -8,7 +8,7 @@ import de.dis2013.util.Helper;
  * Makler-Bean
  */
 public class Makler {
-	private int id;
+	private int id=-1;
 	private String name;
 	private String address;
 	private String login;

@@ -1,10 +1,11 @@
 package de.dis2013.data;
 
+import de.dis2013.util.Helper;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
 public class House extends Estate{
-    private int houseid;
     private int floors;
     private int price;
     private int garden;
@@ -33,11 +34,32 @@ public class House extends Estate{
         this.floors = floors;
     }
 
-    public int getHouseid() {
-        return houseid;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + getFloors();
+        result = prime * result + getGarden();
+        result = prime * result + getPrice();
+        return result;
     }
 
-    public void setHouseid(int houseid) {
-        this.houseid = houseid;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || !(obj instanceof House))
+            return false;
+
+        House other = (House) obj;
+
+        if( other.getFloors() != getFloors()||
+                other.getGarden() != getGarden()||
+                other.getPrice() != getPrice())
+        {
+            return false;
+        }
+
+        return true;
     }
 }

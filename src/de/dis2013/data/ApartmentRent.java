@@ -3,19 +3,11 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class ApartmentRent {
+public class ApartmentRent extends Contract {
 
     private Owner owner;
     private Estate estate;
-    private Contract contract;
 
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
 
     public Estate getEstate() {
         return estate;

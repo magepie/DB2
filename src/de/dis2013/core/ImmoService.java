@@ -178,7 +178,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			House h = it.next();
 			
-			if(h.getHouseid() == id)
+			if(h.getEstateid() == id)
 				return h;
 		}
 		

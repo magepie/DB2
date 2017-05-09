@@ -10,5 +10,7 @@
         <property name="square_area" type="double" column="square_area" />
         <property name="estateaddress" type="string" column="estateaddress" />
         <many-to-one name="agent" class="de.dis2013.data.Makler" column="agentid" not-null="true"></many-to-one>
+        <one-to-one name="Apartment" class="de.dis2013.data.Apartment" cascade="save-update"></one-to-one>
+        <one-to-one name="House" class="de.dis2013.data.House" cascade="save-update"></one-to-one>
     </class>
 </hibernate-mapping>

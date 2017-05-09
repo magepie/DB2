@@ -1,5 +1,7 @@
 package de.dis2013.data;
 
+import de.dis2013.util.Helper;
+
 /**
  * Created by nxirakia on 05.05.17.
  */
@@ -55,4 +57,22 @@ public class Owner {
         return result;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || !(obj instanceof Owner))
+            return false;
+
+        Owner other = (Owner) obj;
+
+        if(!Helper.compareObjects(this.getOwnername(), other.getOwnername()) ||
+                !Helper.compareObjects(this.getOwnersurname(), other.getOwnersurname())||
+                !Helper.compareObjects(this.getAddress(), other.getAddress())                )
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
