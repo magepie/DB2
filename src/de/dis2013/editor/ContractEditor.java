@@ -72,27 +72,27 @@ public class ContractEditor {
 		while(itmv.hasNext()) {
 			TenancyContract mv = itmv.next();
 			System.out.println("Tenancy Contract "+mv.getContractid()+"\n"+
-							"\tSigned on"+mv.getContractdate())+" in "+mv.getSettelmentplace()+"\n"+
+							"\tSigned on"+mv.getContractdate()+" in "+mv.getSettelmentplace()+"\n"+
 							"\tOwner:        "+mv.getOwner().getOwnername()+" "+mv.getOwner().getOwnersurname()+"\n"+
 							"\tApartment:       "+mv.getApartment().getEstateaddress()+"\n"+
 							"\tContract Start Date:    "+mv.getStartDate()+", Duration: "+mv.getDuration()+" Months\n"+
-							"\tMietpreis:     "+mv.getApartment().getRent()+" Euro, Extra costs: "+mv.getExtracharges()+," Euro\n");
+							"\tMietpreis:     "+mv.getApartment().getRent()+" Euro, Extra costs: "+mv.getExtracharges()+" Euro\n");
 		}
 		
 		System.out.println("");
 		
 		//Kaufverträge anzeigen
-		System.out.println("Kaufverträge\n-----------------");
+		System.out.println("Purchase Contracts\n-----------------");
 		Set<PurchaseContract> kvs = service.getAllKaufvertraegeForMakler(makler);
 		Iterator<PurchaseContract> itkv = kvs.iterator();
 		while(itkv.hasNext()) {
 			PurchaseContract kv = itkv.next();
 			System.out.println("Purchanse Contract "+kv.getContractid()+"\n"+
-							"\tSigned on "+kv.getContractdate())+" in "+kv.getSettelmentplace()+"\n"+
+							"\tSigned on "+kv.getContractdate()+" in "+kv.getSettelmentplace()+"\n"+
 							"\tOnwer:        "+kv.getOwner().getOwnername()+" "+kv.getOwner().getOwnersurname()+"\n"+
 							"\tHouse Address:          "+kv.getHouse().getEstateaddress()+"\n"+
 							"\tPrice:     "+kv.getHouse().getPrice()+" Euro\n"+
-							"\tRate Installments:         "+kv.getNumberofinstallments()+", Interest rate: "+kv.getInterestrate()+,"\n");
+							"\tRate Installments:         "+kv.getNumberofinstallments()+", Interest rate: "+kv.getInterestrate()+"\n");
 		}
 	}
 	
@@ -105,7 +105,7 @@ public class ContractEditor {
 		Set<Apartment> apartments = service.getAllApartmentForMakler(makler);
 		
 		//Auswahlmenü für die Wohnungen 
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract" apartments);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract", apartments);
 		int wid = asm.show();
 		
 		//Falls kein Abbruch: Auswahl der Person
@@ -114,7 +114,7 @@ public class ContractEditor {
 			Set<Owner> owners = service.getAllOwners();
 			
 			//Menü zur Auswahl der Person
-			PersonSelectionMenu psm = new PersonSelectionMenu("Select an owner" owners);
+			PersonSelectionMenu psm = new PersonSelectionMenu("Select an owner", owners);
 			int pid = psm.show();
 			
 			//Falls kein Abbruch: Vertragsdaten abfragen und Vertrag anlegen
