@@ -10,6 +10,8 @@ public class House extends Estate{
     private int price;
     private int garden;
 
+    public House(){super();}
+
     public int getGarden() {
         return garden;
     }
@@ -53,7 +55,8 @@ public class House extends Estate{
 
         House other = (House) obj;
 
-        if( other.getFloors() != getFloors()||
+        if( other.getEstateid() != getEstateid()||
+                other.getFloors() != getFloors()||
                 other.getGarden() != getGarden()||
                 other.getPrice() != getPrice())
         {

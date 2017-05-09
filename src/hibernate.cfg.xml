@@ -23,7 +23,7 @@
 		<mapping resource="de/dis2013/data/mapping/Estate.hbm.xml" />
 		<mapping resource="de/dis2013/data/mapping/Sales.hbm.xml" />
 		<mapping resource="de/dis2013/data/mapping/PurchaseContract.hbm.xml" />
-		<mapping resource="de/dis2013/data/mapping/House.hbm.xml" />
+		<!--mapping resource="de/dis2013/data/mapping/House.hbm.xml" /-->
 		<mapping resource="de/dis2013/data/mapping/Apartment.hbm.xml" />
 		<mapping resource="de/dis2013/data/mapping/ApartmentRent.hbm.xml" />
 		<mapping resource="de/dis2013/data/mapping/TenancyContract.hbm.xml" />

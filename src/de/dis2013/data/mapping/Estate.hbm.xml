@@ -11,6 +11,9 @@
         <property name="estateaddress" type="string" column="estateaddress" />
         <many-to-one name="agent" class="de.dis2013.data.Makler" column="agentid" not-null="true"></many-to-one>
         <one-to-one name="Apartment" class="de.dis2013.data.Apartment" cascade="save-update"></one-to-one>
-        <one-to-one name="House" class="de.dis2013.data.House" cascade="save-update"></one-to-one>
+        <union-subclass name="de.dis2013.data.House" table="house">
+            <property name="floors" type="int" column="floors" />
+            <property name="price" type="int" column="price" />
+            <property name="garden" type="int" column="garden" />        </union-subclass>
     </class>
 </hibernate-mapping>

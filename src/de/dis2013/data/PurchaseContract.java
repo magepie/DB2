@@ -34,7 +34,7 @@ public class PurchaseContract extends Contract{
         this.numberofinstallments = numberofinstallments;
     }
 
-    public PurchaseContract(){}
+    public PurchaseContract(){super();}
 
     public int hashCode() {
         final int prime = 31;
@@ -55,7 +55,8 @@ public class PurchaseContract extends Contract{
 
         PurchaseContract other = (PurchaseContract)obj;
 
-        if(!Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+        if(other.getContractid() != getContractid()||
+                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
                 !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()) ||
                 other.getNumberofinstallments() != getNumberofinstallments() ||
                 other.getInterestrate() != getInterestrate())

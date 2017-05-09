@@ -40,7 +40,7 @@ public class TenancyContract extends Contract {
         this.startDate = startDate;
     }
 
-    public TenancyContract(){}
+    public TenancyContract(){super();}
 
     public int hashCode() {
         final int prime = 31;
@@ -63,7 +63,8 @@ public class TenancyContract extends Contract {
 
         TenancyContract other = (TenancyContract) obj;
 
-        if(!Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+        if(other.getContractid() != getContractid()||
+                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
                 !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()) ||
                 other.getStartDate() != getStartDate() ||
                 other.getDuration() != getDuration() ||

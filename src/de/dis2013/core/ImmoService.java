@@ -26,13 +26,14 @@ import de.dis2013.data.Apartment;
  */
 public class ImmoService {
 	//Datensätze im Speicher
-	private Set<Makler> makler = new HashSet<Makler>();
-	private Set<Owner> owners = new HashSet<Owner>();
-	private Set<House> houses = new HashSet<House>();
-	private Set<Apartment> apartments = new HashSet<Apartment>();
-	private Set<TenancyContract> tenancyContracts = new HashSet<TenancyContract>();
-	private Set<PurchaseContract> purchaseContracts = new HashSet<PurchaseContract>();
-	
+	private Set<Makler> makler = new HashSet<>();
+	private Set<Owner> owners = new HashSet<>();
+	private Set<House> houses = new HashSet<>();
+	private Set<Apartment> apartments = new HashSet<>();
+	private Set<TenancyContract> tenancyContracts = new HashSet<>();
+	private Set<PurchaseContract> purchaseContracts = new HashSet<>();
+
+
 	//Hibernate Session
 	private SessionFactory sessionFactory;
 	
@@ -154,7 +155,7 @@ public class ImmoService {
 	 * @return Alle Häuser, die vom Makler verwaltet werden
 	 */
 	public Set<House> getAllHaeuserForMakler(Makler m) {
-		Set<House> ret = new HashSet<House>();
+		Set<House> ret = new HashSet<>();
 		Iterator<House> it = houses.iterator();
 		
 		while(it.hasNext()) {
@@ -420,8 +421,12 @@ public class ImmoService {
 		//TODO: Diese Personen werden im Speicher und der DB gehalten
 		this.addOwner(p1);
 		this.addOwner(p2);
+		session.beginTransaction();
+
 		session.getTransaction().commit();
-		
+
+		session.beginTransaction();
+
 		//Hibernate Session erzeugen
 		session.beginTransaction();
 		House h = new House();
@@ -431,26 +436,26 @@ public class ImmoService {
 		h.setPrice(10000000);
 		h.setGarden(1);
 		h.setAgent(m);
-		
+
 		session.save(h);
-		
+
 		//TODO: Dieses Haus wird im Speicher und der DB gehalten
 		this.addHouse(h);
 		session.getTransaction().commit();
-		
+
 		//Hibernate Session erzeugen
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Makler m2 = (Makler)session.get(Makler.class, m.getId());
 		Set<Estate> immos = m2.getEstate();
 		Iterator<Estate> it = immos.iterator();
-		
+
 		while(it.hasNext()) {
 			Estate i = it.next();
 			System.out.println("Immo: "+i.getEstateaddress());
 		}
 		session.close();
-		
+
 		Apartment w = new Apartment();
 		w.setEstateaddress("Hamburg");
 		w.setRooms(3);

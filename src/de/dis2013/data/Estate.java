@@ -10,6 +10,7 @@ public abstract class Estate {
     private String estateaddress;
     private Makler agent;
     private int estateid=-1;
+    static int currentId = 0;
     private Apartment Apartment;
     private House House;
 
@@ -29,6 +30,7 @@ public abstract class Estate {
         Apartment = apartment;
     }
 
+
     public int getEstateid() {
         return estateid;
     }
@@ -45,8 +47,8 @@ public abstract class Estate {
         this.agent = agent;
     }
 
-    public Estate(){
-    }
+    public Estate(){ this.estateid = currentId++;}
+
 
     public String getEstateaddress() {
         return estateaddress;
@@ -83,7 +85,8 @@ public abstract class Estate {
 
         Estate other = (Estate) obj;
 
-        if( other.getSquare_area() != getSquare_area()||
+        if( other.getEstateid() != getEstateid()||
+                other.getSquare_area() != getSquare_area()||
                 !Helper.compareObjects(this.getEstateaddress(), other.getEstateaddress()))
 
         {

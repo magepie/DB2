@@ -12,6 +12,7 @@ public class Apartment extends Estate{
     private int kitchen;
     private int balcony;
 
+    public Apartment(){super();}
     public int getBalcony() {
         return balcony;
     }

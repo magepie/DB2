@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="de.dis2013.data.Apartment" table="appartment">
+    <class name="de.dis2013.data.Apartment" table="apartment">
         <id name="estateid" column="id_a">
             <generator class="foreign">
                 <param name="property">estateid</param>

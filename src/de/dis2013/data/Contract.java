@@ -74,7 +74,8 @@ public abstract class Contract {
 
         Contract other = (Contract) obj;
 
-        if(!Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+        if(other.getContractid() != getContractid()||
+                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
                 !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()))
         {
             return false;
