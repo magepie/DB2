@@ -4,13 +4,13 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="de.dis2013.data.PurchaseContract" table="purchasecontract">
-        <id name="id" column="id">
+        <id name="contractid" column="id">
             <generator class="foreign">
                 <param name="property">contract</param>
             </generator>
         </id>
-        <one-to-one name="contract" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
-        <property name="numberofinstallments" type="int" column="numberofinstallments" />
+        <property name="numberofinstallments" type="integer" column="numberofinstallments" />
         <property name="interestrate" type="double" column="interestrate" />
+        <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
     </class>
 </hibernate-mapping>

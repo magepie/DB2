@@ -11,8 +11,6 @@ public abstract class Contract {
     private int contractid= -1;
     private String contractdate;
     private String settelmentplace;
-    private TenancyContract tenancyContract;
-    private PurchaseContract purchaseContract;
     private Makler agent;
     private Owner owner;
 
@@ -29,22 +27,6 @@ public abstract class Contract {
 
     public void setAgent(Makler agent) {
         this.agent = agent;
-    }
-
-    public PurchaseContract getPurchaseContract() {
-        return purchaseContract;
-    }
-
-    public void setPurchaseContract(PurchaseContract purchaseContract) {
-        this.purchaseContract = purchaseContract;
-    }
-
-    public TenancyContract getTenancyContract() {
-        return tenancyContract;
-    }
-
-    public void setTenancyContract(TenancyContract tenancyContract) {
-        this.tenancyContract = tenancyContract;
     }
 
     public int getContractid() {
@@ -92,8 +74,7 @@ public abstract class Contract {
 
         Contract other = (Contract) obj;
 
-        if(other.getContractid() != getContractid() ||
-                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+        if(!Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
                 !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()))
         {
             return false;

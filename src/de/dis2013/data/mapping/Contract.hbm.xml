@@ -3,22 +3,12 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="de.dis2013.data.Contract" table="CONTRACT">
+    <class name="de.dis2013.data.Contract" table="contract">
         <id name="contractid" column="id">
             <generator class="increment" />
         </id>
         <property name="settelmentplace" type="string" column="settlemtnplace" />
         <property name="contractdate" type="string" column="contractdate" />
-
-        <union-subclass name="de.dis2013.data.TenancyContract" table="tenancycontract">
-            <property name="startDate" type="string" column="startdate" />
-            <property name="duration" type="integer" column="duration" />
-            <property name="extracharges" type="integer" column="extracharges" />
-        </union-subclass>
-        <union-subclass name="de.dis2013.data.PurchaseContract" table="purchasecontract">
-            <property name="numberofinstallments" type="int" column="numberofinstallments" />
-            <property name="interestrate" type="double" column="interestrate" />
-        </union-subclass>
 
         <!--one-to-one name="purchaseContract" class="de.dis2013.data.PurchaseContract" cascade="save-update"></one-to-one>
         <one-to-one name="tenancyContract" class="de.dis2013.data.TenancyContract" cascade="save-update"></one-to-one-->

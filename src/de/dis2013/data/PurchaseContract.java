@@ -55,8 +55,7 @@ public class PurchaseContract extends Contract{
 
         PurchaseContract other = (PurchaseContract)obj;
 
-        if(other.getContractid() != getContractid() ||
-                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+        if(!Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
                 !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()) ||
                 other.getNumberofinstallments() != getNumberofinstallments() ||
                 other.getInterestrate() != getInterestrate())

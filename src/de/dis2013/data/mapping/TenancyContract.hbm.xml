@@ -4,9 +4,9 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="de.dis2013.data.TenancyContract" table="tenancycontract">
-        <id name="id" column="id">
+        <id name="contractid" column="id">
             <generator class="foreign">
-                <param name="property">contractid</param>
+                <param name="property">contract</param>
             </generator>
         </id>
         <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
