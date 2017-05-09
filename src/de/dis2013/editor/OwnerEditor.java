@@ -1,7 +1,7 @@
 package de.dis2013.editor;
 
 import de.dis2013.core.ImmoService;
-import de.dis2013.data.Person;
+import de.dis2013.data.Owner;
 import de.dis2013.menu.Menu;
 import de.dis2013.menu.OwnerSelectionMenu;
 import de.dis2013.util.FormUtil;
@@ -9,11 +9,11 @@ import de.dis2013.util.FormUtil;
 /**
  * Klasse für die Menüs zur Verwaltung von Personen
  */
-public class PersonEditor {
+public class OwnerEditor {
 	///Immobilienservice, der genutzt werden soll
 	private ImmoService service;
 	
-	public PersonEditor(ImmoService service) {
+	public OwnerEditor(ImmoService service) {
 		this.service = service;
 	}
 	
@@ -28,11 +28,11 @@ public class PersonEditor {
 		final int BACK = 3;
 		
 		//Personenverwaltungsmenü
-		Menu maklerMenu = new Menu("Personen-Verwaltung");
-		maklerMenu.addEntry("Neue Person", NEW_PERSON);
-		maklerMenu.addEntry("Person bearbeiten", EDIT_PERSON);
-		maklerMenu.addEntry("Person löschen", DELETE_PERSON);
-		maklerMenu.addEntry("Zurück zum Hauptmenü", BACK);
+		Menu maklerMenu = new Menu("Owner Management");
+		maklerMenu.addEntry("Add Owner", NEW_PERSON);
+		maklerMenu.addEntry("Edit Owner", EDIT_PERSON);
+		maklerMenu.addEntry("Delete Owner", DELETE_PERSON);
+		maklerMenu.addEntry("Return to Main Menu", BACK);
 		
 		//Verarbeite Eingabe
 		while(true) {
@@ -59,14 +59,14 @@ public class PersonEditor {
 	 * die entprechenden Daten eingegeben hat.
 	 */
 	public void newPerson() {
-		Person p = new Person();
+		Owner p = new Owner();
 		
-		p.setVorname(FormUtil.readString("Vorname"));
-		p.setNachname(FormUtil.readString("Nachname"));
-		p.setAdresse(FormUtil.readString("Adresse"));
+		p.setOwnername(FormUtil.readString("Name"));
+		p.setOwnersurname(FormUtil.readString("Last name"));
+		p.setAddress(FormUtil.readString("Address"));
 		service.addOwner(p);
 		
-		System.out.println("Person mit der ID "+p.getId()+" wurde erzeugt.");
+		System.out.println("Owner with ID "+p.getOwnerid()+" has been created.");
 	}
 	
 	/**
@@ -80,21 +80,21 @@ public class PersonEditor {
 		//Person barbeiten?
 		if(id != OwnerSelectionMenu.BACK) {
 			//Person laden
-			Person p = service.getOwnerById(id);
-			System.out.println("Person "+p.getVorname()+" "+p.getNachname()+" wird bearbeitet. Leere Felder bleiben unverändert.");
+			Owner p = service.getOwnerById(id);
+			System.out.println("Owner "+p.getOwnername()+" "+p.getOwnersurname()+" is being processed. Empty entries can leave unchanged fields.");
 			
 			//Neue Daten einlesen
-			String newVorname = FormUtil.readString("Vorname ("+p.getVorname()+")");
-			String newNachname = FormUtil.readString("Nachname ("+p.getNachname()+")");
-			String newAddress = FormUtil.readString("Adresse ("+p.getAdresse()+")");
+			String newVorname = FormUtil.readString("Name ("+p.getOwnername()+")");
+			String newNachname = FormUtil.readString("Last Name ("+p.getOwnersurname()+")");
+			String newAddress = FormUtil.readString("Address ("+p.getAddress()+")");
 			
 			//Neue Daten setzen
 			if(!newVorname.equals(""))
-				p.setVorname(newVorname);
+				p.setOwnername(newVorname);
 			if(!newNachname.equals(""))
-				p.setNachname(newNachname);
+				p.setOwnersurname(newNachname);
 			if(!newAddress.equals(""))
-				p.setAdresse(newAddress);
+				p.setAddress(newAddress);
 		}
 	}
 	
@@ -109,8 +109,8 @@ public class PersonEditor {
 		
 		//Löschen, falls nicht "zurück" gewählt wurde
 		if(id != OwnerSelectionMenu.BACK) {
-			Person p = service.getOwnerById(id);
-			service.deletePerson(p);
+			Owner p = service.getOwnerById(id);
+			service.deleteOwner(p);
 		}
 	}
 }

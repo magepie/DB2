@@ -5,7 +5,7 @@ import de.dis2013.authentication.PropertiesFileAuthenticator;
 import de.dis2013.core.ImmoService;
 import de.dis2013.editor.ImmobilienEditor;
 import de.dis2013.editor.MaklerEditor;
-import de.dis2013.editor.PersonEditor;
+import de.dis2013.editor.OwnerEditor;
 import de.dis2013.editor.ContractEditor;
 import de.dis2013.menu.Menu;
 
@@ -61,7 +61,7 @@ public class Main {
 					break;
 				case MENU_PERSON:
 					if(ma.authenticate()) {
-						PersonEditor pe = new PersonEditor(service);
+						OwnerEditor pe = new OwnerEditor(service);
 						pe.showPersonMenu();
 					}
 					break;
