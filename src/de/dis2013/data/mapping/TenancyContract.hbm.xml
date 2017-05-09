@@ -12,6 +12,6 @@
         <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
         <property name="startDate" type="string" column="startDate" />
         <property name="duration" type="int" column="duration" />
-        <property name="extracharges" type="double" column="extracharges" />
+        <property name="extracharges" type="int" column="extracharges" />
     </class>
 </hibernate-mapping>

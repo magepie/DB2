@@ -96,7 +96,7 @@ public class ImmobilienEditor {
 		h.setGarten(FormUtil.readBoolean("Garten"));
 		h.setVerwalter(this.verwalter);
 		
-		service.addHaus(h);
+		service.addHouse(h);
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class ImmobilienEditor {
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus bearbeiten
 		if(id != HouseSelectionMenu.BACK) {
 			//Gewähltes Haus laden
-			Haus h = service.getHausById(id);
+			Haus h = service.getHouseById(id);
 			
 			System.out.println("Haus "+h.getStrasse()+" "+h.getHausnummer()+", "+h.getPlz()+" "+h.getOrt()+" wird bearbeitet. Leere Felder bzw. Eingabe von 0 lässt Feld unverändert.");
 			
@@ -168,7 +168,7 @@ public class ImmobilienEditor {
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus löschen
 		if(id != HouseSelectionMenu.BACK) {
-			Haus h = service.getHausById(id);
+			Haus h = service.getHouseById(id);
 			service.deleteHouse(h);
 		}
 	}
@@ -190,7 +190,7 @@ public class ImmobilienEditor {
 		w.setBalkon(FormUtil.readBoolean("Balkon"));
 		w.setVerwalter(this.verwalter);
 		
-		service.addWohnung(w);
+		service.addApartment(w);
 	}
 	
 	/**
@@ -199,7 +199,7 @@ public class ImmobilienEditor {
 	 */
 	public void editAppartment() {
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Wohnung> wohnungen = service.getAllWohnungenForMakler(verwalter);
+		Set<Wohnung> wohnungen = service.getAllApartmentForMakler(verwalter);
 		
 		//Auswahlmenü für die zu bearbeitende Wohnung
 		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Liste der verwalteten Wohnungen", wohnungen);
@@ -208,7 +208,7 @@ public class ImmobilienEditor {
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung bearbeiten
 		if(id != AppartmentSelectionMenu.BACK) {
 			//Wohnung laden
-			Wohnung w = service.getWohnungById(id);
+			Wohnung w = service.getApartmentById(id);
 			
 			System.out.println("Haus "+w.getStrasse()+" "+w.getHausnummer()+", "+w.getPlz()+" "+w.getOrt()+" wird bearbeitet. Leere Felder bzw. Eingabe von 0 lässt Feld unverändert.");
 			
@@ -256,7 +256,7 @@ public class ImmobilienEditor {
 	 */
 	public void deleteAppartment() {
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Wohnung> wohnungen = service.getAllWohnungenForMakler(verwalter);
+		Set<Wohnung> wohnungen = service.getAllApartmentForMakler(verwalter);
 		
 		//Auswahlmenü für die zu bearbeitende Wohnung
 		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Liste der verwalteten Wohnungen", wohnungen);
@@ -264,8 +264,8 @@ public class ImmobilienEditor {
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung löschen
 		if(id != HouseSelectionMenu.BACK) {
-			Wohnung w = service.getWohnungById(id);
-			service.deleteWohnung(w);
+			Wohnung w = service.getApartmentById(id);
+			service.deleteApartment(w);
 		}
 	}
 }

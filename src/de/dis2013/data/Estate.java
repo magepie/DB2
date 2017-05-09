@@ -3,21 +3,21 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class Estate {
+public abstract class Estate {
     private int estateid;
     private double square_area;
     private String estateaddress;
-    private int agent;
-    
-    public Estate(){
-    }
+    private Makler agent;
 
-    public int getAgent() {
+    public Makler getAgent() {
         return agent;
     }
 
-    public void setAgent(int agent) {
+    public void setAgent(Makler agent) {
         this.agent = agent;
+    }
+
+    public Estate(){
     }
 
     public String getEstateaddress() {
@@ -43,4 +43,5 @@ public class Estate {
     public void setEstateid(int estateid) {
         this.estateid = estateid;
     }
+
 }

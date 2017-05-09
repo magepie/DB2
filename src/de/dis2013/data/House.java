@@ -3,7 +3,7 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class House {
+public class House extends Estate{
     private int houseid;
     private int floors;
     private int price;

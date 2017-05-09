@@ -64,7 +64,7 @@ public class PersonEditor {
 		p.setVorname(FormUtil.readString("Vorname"));
 		p.setNachname(FormUtil.readString("Nachname"));
 		p.setAdresse(FormUtil.readString("Adresse"));
-		service.addPerson(p);
+		service.addOwner(p);
 		
 		System.out.println("Person mit der ID "+p.getId()+" wurde erzeugt.");
 	}
@@ -74,13 +74,13 @@ public class PersonEditor {
 	 */
 	public void editPerson() {
 		//Personenauswahlmenü
-		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllPersons());
+		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllOwners());
 		int id = personSelectionMenu.show();
 		
 		//Person barbeiten?
 		if(id != PersonSelectionMenu.BACK) {
 			//Person laden
-			Person p = service.getPersonById(id);
+			Person p = service.getOwnerById(id);
 			System.out.println("Person "+p.getVorname()+" "+p.getNachname()+" wird bearbeitet. Leere Felder bleiben unverändert.");
 			
 			//Neue Daten einlesen
@@ -104,12 +104,12 @@ public class PersonEditor {
 	 */
 	public void deletePerson() {
 		//Auswahl der Person
-		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllPersons());
+		Menu personSelectionMenu = new PersonSelectionMenu("Person bearbeiten", service.getAllOwners());
 		int id = personSelectionMenu.show();
 		
 		//Löschen, falls nicht "zurück" gewählt wurde
 		if(id != PersonSelectionMenu.BACK) {
-			Person p = service.getPersonById(id);
+			Person p = service.getOwnerById(id);
 			service.deletePerson(p);
 		}
 	}

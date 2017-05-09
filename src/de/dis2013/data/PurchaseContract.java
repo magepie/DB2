@@ -3,18 +3,18 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class PurchaseContract {
+public class PurchaseContract extends Contract{
     private int id;
     private int numberofinstallments;
     private double interestrate;
-    private Contract contract;
+    private House house;
 
-    public Contract getContract() {
-        return contract;
+    public House getHouse() {
+        return house;
     }
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
+    public void setHouse(House house) {
+        this.house = house;
     }
 
     public double getInterestrate() {

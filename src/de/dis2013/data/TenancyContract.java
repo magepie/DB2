@@ -3,36 +3,24 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class TenancyContract {
+public class TenancyContract extends Contract {
 
     private int id;
     private String startDate;
     private int duration;
-    private double extracharges;
-    private Contract contract;
-    private Contract contractid;
+    private int extracharges;
+    private Apartment apartment;
 
-    public Contract getContractid() {
-        return contractid;
-    }
 
-    public void setContractid(Contract contractid) {
-        this.contractid = contractid;
-    }
+    public void setApartment(Apartment apartment){this.apartment=apartment;}
 
-    public Contract getContract() {
-        return contract;
-    }
+    public Apartment getApartment(){return apartment;}
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
-
-    public double getExtracharges() {
+    public int getExtracharges() {
         return extracharges;
     }
 
-    public void setExtracharges(double extracharges) {
+    public void setExtracharges(int extracharges) {
         this.extracharges = extracharges;
     }
 

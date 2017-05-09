@@ -3,10 +3,9 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class Apartment {
+public class Apartment extends Estate{
     private Contract contractid;
     private Owner ownerid;
-    private Apartment apartmentid;
     private int floor;
     private int rent;
     private int rooms;
@@ -53,14 +52,6 @@ public class Apartment {
         this.floor = floor;
     }
 
-    public Apartment getApartmentid() {
-        return apartmentid;
-    }
-
-    public void setApartmentid(Apartment apartmentid) {
-        this.apartmentid = apartmentid;
-    }
-
     public Owner getOwnerid() {
         return ownerid;
     }
@@ -76,4 +67,42 @@ public class Apartment {
     public void setContractid(Contract contractid) {
         this.contractid = contractid;
     }
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+
+        result = prime * result + getFloor();
+        result = prime * result + getRent();
+        result = prime * result + getRooms();
+        result = prime * result + getBalcony();
+        result = prime * result + getKitchen();
+
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || !(obj instanceof Apartment))
+            return false;
+
+        Apartment other = (Apartment) obj;
+
+        if(other.getEstateid() != getEstateid() ||
+                other.getEstateaddress() != getEstateaddress() ||
+                other.getSquare_area() != getSquare_area() ||
+                getFloor() != other.getFloor() ||
+                getRent() != other.getRent() ||
+                getRooms() != other.getRooms() ||
+                getBalcony() != other.getBalcony() ||
+                getKitchen() != other.getKitchen())
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
+

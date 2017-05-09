@@ -6,11 +6,11 @@ import de.dis2013.core.ImmoService;
 import de.dis2013.editor.ImmobilienEditor;
 import de.dis2013.editor.MaklerEditor;
 import de.dis2013.editor.PersonEditor;
-import de.dis2013.editor.VertragsEditor;
+import de.dis2013.editor.ContractEditor;
 import de.dis2013.menu.Menu;
 
 /**
- * Hauptklasse, die das Hauptmenü zeigt
+ * Main class, for the main menu
  */
 public class Main {
 	private static ImmoService service;
@@ -73,8 +73,8 @@ public class Main {
 					break;
 				case MENU_VERTRAG:
 					if(ma.authenticate()) {
-						VertragsEditor ve = new VertragsEditor(service, ma.getLastAuthenticatedMakler());
-						ve.showVertragsMenu();
+						ContractEditor ve = new ContractEditor(service, ma.getLastAuthenticatedMakler());
+						ve.showContractMenu();
 					}
 					break;
 				case QUIT:

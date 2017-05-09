@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="de.dis2013.data.Apartment" table="appartment">
-        <id name="apartmentid" column="id_a">
+        <id name="id" column="id_a">
             <generator class="increment"/>
         </id>
         <property name="floor" type="int" column="floor" />

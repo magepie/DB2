@@ -9,13 +9,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import de.dis2013.data.Haus;
-import de.dis2013.data.Immobilie;
-import de.dis2013.data.Kaufvertrag;
+import de.dis2013.data.House;
+import de.dis2013.data.Estate;
+import de.dis2013.data.PurchaseContract;
 import de.dis2013.data.Makler;
-import de.dis2013.data.Mietvertrag;
-import de.dis2013.data.Person;
-import de.dis2013.data.Wohnung;
+import de.dis2013.data.TenancyContract;
+import de.dis2013.data.Owner;
+import de.dis2013.data.Apartment;
 
 /**
  * Klasse zur Verwaltung aller Datenbank-Entitäten.
@@ -27,11 +27,11 @@ import de.dis2013.data.Wohnung;
 public class ImmoService {
 	//Datensätze im Speicher
 	private Set<Makler> makler = new HashSet<Makler>();
-	private Set<Person> personen = new HashSet<Person>();
-	private Set<Haus> haeuser = new HashSet<Haus>();
-	private Set<Wohnung> wohnungen = new HashSet<Wohnung>();
-	private Set<Mietvertrag> mietvertraege = new HashSet<Mietvertrag>();
-	private Set<Kaufvertrag> kaufvertraege = new HashSet<Kaufvertrag>();
+	private Set<Owner> owners = new HashSet<Owner>();
+	private Set<House> houses = new HashSet<House>();
+	private Set<Apartment> apartments = new HashSet<Apartment>();
+	private Set<TenancyContract> tenancyContracts = new HashSet<TenancyContract>();
+	private Set<PurchaseContract> purchaseContracts = new HashSet<PurchaseContract>();
 	
 	//Hibernate Session
 	private SessionFactory sessionFactory;
@@ -88,13 +88,13 @@ public class ImmoService {
 	 * @param id Die ID der Person
 	 * @return Person mit der ID oder null
 	 */
-	public Person getPersonById(int id) {
-		Iterator<Person> it = personen.iterator();
+	public Owner getOwnerById(int id) {
+		Iterator<Owner> it = owners.iterator();
 		
 		while(it.hasNext()) {
-			Person p = it.next();
+			Owner p = it.next();
 			
-			if(p.getId() == id)
+			if(p.getOwnerid() == id)
 				return p;
 		}
 		
@@ -121,31 +121,31 @@ public class ImmoService {
 	 * Fügt eine Person hinzu
 	 * @param p Die Person
 	 */
-	public void addPerson(Person p) {
-		personen.add(p);
+	public void addOwner(Owner p) {
+		owners.add(p);
 	}
 	
 	/**
 	 * Gibt alle Personen zurück
 	 */
-	public Set<Person> getAllPersons() {
-		return personen;
+	public Set<Owner> getAllOwners() {
+		return owners;
 	}
 	
 	/**
 	 * Löscht eine Person
 	 * @param p Die Person
 	 */
-	public void deletePerson(Person p) {
-		personen.remove(p);
+	public void deleteOwner(Owner p) {
+		owners.remove(p);
 	}
 	
 	/**
 	 * Fügt ein Haus hinzu
 	 * @param h Das Haus
 	 */
-	public void addHaus(Haus h) {
-		haeuser.add(h);
+	public void addHouse(House h) {
+		houses.add(h);
 	}
 	
 	/**
@@ -153,14 +153,14 @@ public class ImmoService {
 	 * @param m Der Makler
 	 * @return Alle Häuser, die vom Makler verwaltet werden
 	 */
-	public Set<Haus> getAllHaeuserForMakler(Makler m) {
-		Set<Haus> ret = new HashSet<Haus>();
-		Iterator<Haus> it = haeuser.iterator();
+	public Set<House> getAllHaeuserForMakler(Makler m) {
+		Set<House> ret = new HashSet<House>();
+		Iterator<House> it = houses.iterator();
 		
 		while(it.hasNext()) {
-			Haus h = it.next();
+			House h = it.next();
 			
-			if(h.getVerwalter().equals(m))
+			if(h.getAgent().equals(m))
 				ret.add(h);
 		}
 		
@@ -172,13 +172,13 @@ public class ImmoService {
 	 * @param m Der Makler
 	 * @return Das Haus oder null, falls nicht gefunden
 	 */
-	public Haus getHausById(int id) {
-		Iterator<Haus> it = haeuser.iterator();
+	public House getHouseById(int id) {
+		Iterator<House> it = houses.iterator();
 		
 		while(it.hasNext()) {
-			Haus h = it.next();
+			House h = it.next();
 			
-			if(h.getId() == id)
+			if(h.getHouseid() == id)
 				return h;
 		}
 		
@@ -189,16 +189,16 @@ public class ImmoService {
 	 * Löscht ein Haus
 	 * @param p Das Haus
 	 */
-	public void deleteHouse(Haus h) {
-		haeuser.remove(h);
+	public void deleteHouse(House h) {
+		houses.remove(h);
 	}
 	
 	/**
 	 * Fügt eine Wohnung hinzu
 	 * @param w die Wohnung
 	 */
-	public void addWohnung(Wohnung w) {
-		wohnungen.add(w);
+	public void addApartment(Apartment w) {
+		apartments.add(w);
 	}
 	
 	/**
@@ -206,14 +206,14 @@ public class ImmoService {
 	 * @param m Der Makler
 	 * @return Alle Wohnungen, die vom Makler verwaltet werden
 	 */
-	public Set<Wohnung> getAllWohnungenForMakler(Makler m) {
-		Set<Wohnung> ret = new HashSet<Wohnung>();
-		Iterator<Wohnung> it = wohnungen.iterator();
+	public Set<Apartment> getAllApartmentForMakler(Makler m) {
+		Set<Apartment> ret = new HashSet<Apartment>();
+		Iterator<Apartment> it = apartments.iterator();
 		
 		while(it.hasNext()) {
-			Wohnung w = it.next();
+			Apartment w = it.next();
 			
-			if(w.getVerwalter().equals(m))
+			if(w.getAgent().equals(m))
 				ret.add(w);
 		}
 		
@@ -225,13 +225,13 @@ public class ImmoService {
 	 * @param id Die ID
 	 * @return Die Wohnung oder null, falls nicht gefunden
 	 */
-	public Wohnung getWohnungById(int id) {
-		Iterator<Wohnung> it = wohnungen.iterator();
+	public Apartment getApartmentById(int id) {
+		Iterator<Apartment> it = apartments.iterator();
 		
 		while(it.hasNext()) {
-			Wohnung w = it.next();
+			Apartment w = it.next();
 			
-			if(w.getId() == id)
+			if(w.getEstateid() == id)
 				return w;
 		}
 		
@@ -242,8 +242,8 @@ public class ImmoService {
 	 * Löscht eine Wohnung
 	 * @param p Die Wohnung
 	 */
-	public void deleteWohnung(Wohnung w) {
-		wohnungen.remove(w);
+	public void deleteApartment(Apartment w) {
+		apartments.remove(w);
 	}
 	
 	
@@ -251,16 +251,16 @@ public class ImmoService {
 	 * Fügt einen Mietvertrag hinzu
 	 * @param w Der Mietvertrag
 	 */
-	public void addMietvertrag(Mietvertrag m) {
-		mietvertraege.add(m);
+	public void addTenancyContract(TenancyContract m) {
+		tenancyContracts.add(m);
 	}
 	
 	/**
 	 * Fügt einen Kaufvertrag hinzu
 	 * @param w Der Kaufvertrag
 	 */
-	public void addKaufvertrag(Kaufvertrag k) {
-		kaufvertraege.add(k);
+	public void addPurchaseContract(PurchaseContract k) {
+		purchaseContracts.add(k);
 	}
 	
 	/**
@@ -268,14 +268,14 @@ public class ImmoService {
 	 * @param m Der Makler
 	 * @return Alle Mietverträge, die zu Wohnungen gehören, die vom Makler verwaltet werden
 	 */
-	public Set<Mietvertrag> getAllMietvertraegeForMakler(Makler m) {
-		Set<Mietvertrag> ret = new HashSet<Mietvertrag>();
-		Iterator<Mietvertrag> it = mietvertraege.iterator();
+	public Set<TenancyContract> getAllTenancyContractsForMakler(Makler m) {
+		Set<TenancyContract> ret = new HashSet<TenancyContract>();
+		Iterator<TenancyContract> it = tenancyContracts.iterator();
 		
 		while(it.hasNext()) {
-			Mietvertrag v = it.next();
+			TenancyContract v = it.next();
 			
-			if(v.getWohnung().getVerwalter().equals(m))
+			if(v.getAgent().equals(m))
 				ret.add(v);
 		}
 		
@@ -287,14 +287,14 @@ public class ImmoService {
 	 * @param m Der Makler
 	 * @return Alle Kaufverträge, die zu Häusern gehören, die vom Makler verwaltet werden
 	 */
-	public Set<Kaufvertrag> getAllKaufvertraegeForMakler(Makler m) {
-		Set<Kaufvertrag> ret = new HashSet<Kaufvertrag>();
-		Iterator<Kaufvertrag> it = kaufvertraege.iterator();
+	public Set<PurchaseContract> getAllKaufvertraegeForMakler(Makler m) {
+		Set<PurchaseContract> ret = new HashSet<PurchaseContract>();
+		Iterator<PurchaseContract> it = purchaseContracts.iterator();
 		
 		while(it.hasNext()) {
-			Kaufvertrag k = it.next();
+			PurchaseContract k = it.next();
 			
-			if(k.getHaus().getVerwalter().equals(m))
+			if(k.getHouse().getAgent().equals(m))
 				ret.add(k);
 		}
 		
@@ -306,11 +306,11 @@ public class ImmoService {
 	 * @param id Die ID
 	 * @return Der Mietvertrag oder null, falls nicht gefunden
 	 */
-	public Mietvertrag getMietvertragById(int id) {
-		Iterator<Mietvertrag> it = mietvertraege.iterator();
+	public TenancyContract getTenancyContractById(int id) {
+		Iterator<TenancyContract> it = tenancyContracts.iterator();
 		
 		while(it.hasNext()) {
-			Mietvertrag m = it.next();
+			TenancyContract m = it.next();
 			
 			if(m.getId() == id)
 				return m;
@@ -321,17 +321,16 @@ public class ImmoService {
 	
 	/**
 	 * Findet alle Mietverträge, die Wohnungen eines gegebenen Verwalters betreffen
-	 * @param id Der Verwalter
 	 * @return Set aus Mietverträgen
 	 */
-	public Set<Mietvertrag> getMietvertragByVerwalter(Makler m) {
-		Set<Mietvertrag> ret = new HashSet<Mietvertrag>();
-		Iterator<Mietvertrag> it = mietvertraege.iterator();
+	public Set<TenancyContract> getTenancyContractByAgent(Makler m) {
+		Set<TenancyContract> ret = new HashSet<TenancyContract>();
+		Iterator<TenancyContract> it = tenancyContracts.iterator();
 		
 		while(it.hasNext()) {
-			Mietvertrag mv = it.next();
+			TenancyContract mv = it.next();
 			
-			if(mv.getWohnung().getVerwalter().getId() == m.getId())
+			if(mv.getApartment().getAgent().getId() == m.getId())
 				ret.add(mv);
 		}
 		
@@ -340,17 +339,16 @@ public class ImmoService {
 	
 	/**
 	 * Findet alle Kaufverträge, die Häuser eines gegebenen Verwalters betreffen
-	 * @param id Der Verwalter
 	 * @return Set aus Kaufverträgen
 	 */
-	public Set<Kaufvertrag> getKaufvertragByVerwalter(Makler m) {
-		Set<Kaufvertrag> ret = new HashSet<Kaufvertrag>();
-		Iterator<Kaufvertrag> it = kaufvertraege.iterator();
+	public Set<PurchaseContract> getPurchaseContractByAgent(Makler m) {
+		Set<PurchaseContract> ret = new HashSet<PurchaseContract>();
+		Iterator<PurchaseContract> it =purchaseContracts.iterator();
 		
 		while(it.hasNext()) {
-			Kaufvertrag k = it.next();
+			PurchaseContract k = it.next();
 			
-			if(k.getHaus().getVerwalter().getId() == m.getId())
+			if(k.getHouse().getAgent().getId() == m.getId())
 				ret.add(k);
 		}
 		
@@ -362,11 +360,11 @@ public class ImmoService {
 	 * @param id Die ID
 	 * @return Der Kaufvertrag oder null, falls nicht gefunden
 	 */
-	public Kaufvertrag getKaufvertragById(int id) {
-		Iterator<Kaufvertrag> it = kaufvertraege.iterator();
+	public PurchaseContract getPurchaseContractById(int id) {
+		Iterator<PurchaseContract> it = purchaseContracts.iterator();
 		
 		while(it.hasNext()) {
-			Kaufvertrag k = it.next();
+			PurchaseContract k = it.next();
 			
 			if(k.getId() == id)
 				return k;
@@ -379,8 +377,8 @@ public class ImmoService {
 	 * Löscht einen Mietvertrag
 	 * @param m Der Mietvertrag
 	 */
-	public void deleteMietvertrag(Mietvertrag m) {
-		wohnungen.remove(m);
+	public void deleteTenancyContract(TenancyContract m) {
+		apartments.remove(m);
 	}
 	
 	/**
@@ -394,9 +392,9 @@ public class ImmoService {
 		
 		Makler m = new Makler();
 		m.setName("Max Mustermann");
-		m.setAdresse("Am Informatikum 9");
+		m.setAddress("Am Informatikum 9");
 		m.setLogin("max");
-		m.setPasswort("max");
+		m.setPassword("max");
 		
 		//TODO: Dieser Makler wird im Speicher und der DB gehalten
 		this.addMakler(m);
@@ -404,103 +402,95 @@ public class ImmoService {
 		session.getTransaction().commit();
 
 		session.beginTransaction();
-		
-		Person p1 = new Person();
-		p1.setAdresse("Informatikum");
-		p1.setNachname("Mustermann");
-		p1.setVorname("Erika");
-		
-		
-		Person p2 = new Person();
-		p2.setAdresse("Reeperbahn 9");
-		p2.setNachname("Albers");
-		p2.setVorname("Hans");
+
+		Owner p1 = new Owner();
+		p1.setAddress("Informatikum");
+		p1.setOwnersurname("Mustermann");
+		p1.setOwnername("Erika");
+
+
+		Owner p2 = new Owner();
+		p2.setAddress("Reeperbahn 9");
+		p2.setOwnersurname("Albers");
+		p2.setOwnername("Hans");
 		
 		session.save(p1);
 		session.save(p2);
 		
 		//TODO: Diese Personen werden im Speicher und der DB gehalten
-		this.addPerson(p1);
-		this.addPerson(p2);
+		this.addOwner(p1);
+		this.addOwner(p2);
 		session.getTransaction().commit();
 		
 		//Hibernate Session erzeugen
 		session.beginTransaction();
-		Haus h = new Haus();
-		h.setOrt("Hamburg");
-		h.setPlz(22527);
-		h.setStrasse("Vogt-Kölln-Straße");
-		h.setHausnummer("2a");
-		h.setFlaeche(384);
-		h.setStockwerke(5);
-		h.setKaufpreis(10000000);
-		h.setGarten(true);
-		h.setVerwalter(m);
+		House h = new House();
+		h.setEstateaddress("Hamburg, Vogt-Kölln-Straße");
+		h.setSquare_area(384);
+		h.setFloors(5);
+		h.setPrice(10000000);
+		h.setGarden(1);
+		h.setAgent(m);
 		
 		session.save(h);
 		
 		//TODO: Dieses Haus wird im Speicher und der DB gehalten
-		this.addHaus(h);
+		this.addHouse(h);
 		session.getTransaction().commit();
 		
 		//Hibernate Session erzeugen
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Makler m2 = (Makler)session.get(Makler.class, m.getId());
-		Set<Immobilie> immos = m2.getImmobilien();
-		Iterator<Immobilie> it = immos.iterator();
+		Set<Estate> immos = m2.getEstate();
+		Iterator<Estate> it = immos.iterator();
 		
 		while(it.hasNext()) {
-			Immobilie i = it.next();
-			System.out.println("Immo: "+i.getOrt());
+			Estate i = it.next();
+			System.out.println("Immo: "+i.getEstateaddress());
 		}
 		session.close();
 		
-		Wohnung w = new Wohnung();
-		w.setOrt("Hamburg");
-		w.setPlz(22527);
-		w.setStrasse("Vogt-Kölln-Straße");
-		w.setHausnummer("3");
-		w.setFlaeche(120);
-		w.setStockwerk(4);
-		w.setMietpreis(790);
-		w.setEbk(true);
-		w.setBalkon(false);
-		w.setVerwalter(m);
-		this.addWohnung(w);
+		Apartment w = new Apartment();
+		w.setEstateaddress("Hamburg");
+		w.setRooms(3);
+		w.setSquare_area(120);
+		w.setFloor(4);
+		w.setRent(790);
+		w.setKitchen(1);
+		w.setBalcony(0);
+		w.setAgent(m);
+		this.addApartment(w);
 		
-		w = new Wohnung();
-		w.setOrt("Berlin");
-		w.setPlz(22527);
-		w.setStrasse("Vogt-Kölln-Straße");
-		w.setHausnummer("3");
-		w.setFlaeche(120);
-		w.setStockwerk(4);
-		w.setMietpreis(790);
-		w.setEbk(true);
-		w.setBalkon(false);
-		w.setVerwalter(m);
-		this.addWohnung(w);
-		
-		Kaufvertrag kv = new Kaufvertrag();
-		kv.setHaus(h);
-		kv.setVertragspartner(p1);
-		kv.setVertragsnummer(9234);
-		kv.setDatum(new Date(System.currentTimeMillis()));
-		kv.setOrt("Hamburg");
-		kv.setAnzahlRaten(5);
-		kv.setRatenzins(4);
-		this.addKaufvertrag(kv);
-		
-		Mietvertrag mv = new Mietvertrag();
-		mv.setWohnung(w);
-		mv.setVertragspartner(p2);
-		mv.setVertragsnummer(23112);
-		mv.setDatum(new Date(System.currentTimeMillis()-1000000000));
-		mv.setOrt("Berlin");
-		mv.setMietbeginn(new Date(System.currentTimeMillis()));
-		mv.setNebenkosten(65);
-		mv.setDauer(36);
-		this.addMietvertrag(mv);
+		w = new Apartment();
+		w.setEstateaddress("Berlin");
+		w.setSquare_area(120);
+		w.setFloor(4);
+		w.setRent(790);
+		w.setKitchen(1);
+		w.setBalcony(1);
+		w.setAgent(m);
+		this.addApartment(w);
+
+		PurchaseContract kv = new PurchaseContract();
+		kv.setHouse(h);
+		kv.setOwner(p1);
+		kv.setContractid(9234);
+		kv.setContractdate("12/5/2016");
+		kv.setSettelmentplace("Hamburg");
+		kv.setNumberofinstallments(5);
+		kv.setInterestrate(4);
+		this.addPurchaseContract(kv);
+
+		TenancyContract mv = new TenancyContract();
+		mv.setApartment(w);
+		mv.setOwner(p2);
+		mv.setContractid(23112);
+		mv.setContractdate("12/5/2006");
+		mv.setSettelmentplace("Berlin");
+		mv.setStartDate("20/5/2006");
+		mv.setExtracharges(65);
+		mv.setDuration(36);
+		this.addTenancyContract(mv);
 	}
 }
