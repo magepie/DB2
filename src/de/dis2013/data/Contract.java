@@ -83,7 +83,24 @@ public abstract class Contract {
         return result;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
 
+        if (obj == null || !(obj instanceof Contract))
+            return false;
+
+        Contract other = (Contract) obj;
+
+        if(other.getContractid() != getContractid() ||
+                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+                !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 

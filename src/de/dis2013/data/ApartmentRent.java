@@ -4,31 +4,32 @@ package de.dis2013.data;
  * Created by nxirakia on 08.05.17.
  */
 public class ApartmentRent {
-    private Contract contractid;
-    private Owner ownerid;
-    private Apartment apartmentid;
 
-    public Apartment getApartmentid() {
-        return apartmentid;
+    private Owner owner;
+    private Estate estate;
+    private Contract contract;
+
+    public Contract getContract() {
+        return contract;
     }
 
-    public void setApartmentid(Apartment apartmentid) {
-        this.apartmentid = apartmentid;
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 
-    public Owner getOwnerid() {
-        return ownerid;
+    public Estate getEstate() {
+        return estate;
     }
 
-    public void setOwnerid(Owner ownerid) {
-        this.ownerid = ownerid;
+    public void setEstate(Estate estate) {
+        this.estate = estate;
     }
 
-    public Contract getContractid() {
-        return contractid;
+    public Owner getOwner() {
+        return owner;
     }
 
-    public void setContractid(Contract contractid) {
-        this.contractid = contractid;
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }

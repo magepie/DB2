@@ -312,7 +312,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			TenancyContract m = it.next();
 			
-			if(m.getId() == id)
+			if(m.getContractid() == id)
 				return m;
 		}
 		
@@ -366,7 +366,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			PurchaseContract k = it.next();
 			
-			if(k.getId() == id)
+			if(k.getContractid() == id)
 				return k;
 		}
 		

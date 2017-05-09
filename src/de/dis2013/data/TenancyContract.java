@@ -1,11 +1,11 @@
 package de.dis2013.data;
 
+import de.dis2013.util.Helper;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
 public class TenancyContract extends Contract {
-
-    private int id;
     private String startDate;
     private int duration;
     private int extracharges;
@@ -40,11 +40,40 @@ public class TenancyContract extends Contract {
         this.startDate = startDate;
     }
 
-    public int getId() {
-        return id;
+    public TenancyContract(){}
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + getExtracharges();
+        result = prime * result + getDuration();
+        result = prime * result + ((getStartDate() == null) ? 0 : getStartDate().hashCode());
+
+
+        return result;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || !(obj instanceof TenancyContract))
+            return false;
+
+        TenancyContract other = (TenancyContract) obj;
+
+        if(other.getContractid() != getContractid() ||
+                !Helper.compareObjects(this.getContractdate(), other.getContractdate()) ||
+                !Helper.compareObjects(this.getSettelmentplace(), other.getSettelmentplace()) ||
+                other.getStartDate() != getStartDate() ||
+                other.getDuration() != getDuration() ||
+                other.getExtracharges() != getExtracharges())
+
+        {
+            return false;
+        }
+
+        return true;
     }
 }

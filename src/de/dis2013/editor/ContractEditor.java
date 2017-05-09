@@ -132,7 +132,7 @@ public class ContractEditor {
 				
 				service.addTenancyContract(m);
 				
-				System.out.println("Tenancy contract with ID "+m.getId()+" has been created.");
+				System.out.println("Tenancy contract with ID "+m.getContractid()+" has been created.");
 			}
 		}
 	}
@@ -171,7 +171,7 @@ public class ContractEditor {
 				
 				service.addPurchaseContract(k);
 				
-				System.out.println("Purchase contract with ID "+k.getId()+" has been created.");
+				System.out.println("Purchase contract with ID "+k.getContractid()+" has been created.");
 			}
 		}
 	}
