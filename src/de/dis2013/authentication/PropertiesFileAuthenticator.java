@@ -47,13 +47,13 @@ public class PropertiesFileAuthenticator implements Authenticator {
 	 * aus der Properties-Datei
 	 */
 	public boolean authenticate() {
-		String username = FormUtil.readString("Benutzername");
-		String password = FormUtil.readPassword("Passwort");
+		String username = FormUtil.readString("Username");
+		String password = FormUtil.readPassword("Password");
 		
 		if(this.username.equals(username) && this.password.equals(password)) {
 			return true;
 		} else {
-			FormUtil.showMessage("Benutzername oder Passwort falsch!");
+			FormUtil.showMessage("Iconrrect Username and Password!");
 			return false;
 		}
 	}
