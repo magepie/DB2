@@ -7,13 +7,16 @@ public class Estate {
     private int estateid;
     private double square_area;
     private String estateaddress;
-    private Makler agent;
+    private int agent;
+    
+    public Estate(){
+    }
 
-    public Makler getAgent() {
+    public int getAgent() {
         return agent;
     }
 
-    public void setAgent(Makler agent) {
+    public void setAgent(int agent) {
         this.agent = agent;
     }
 

@@ -4,17 +4,17 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="de.dis2013.data.Makler" table="makler">
-		<id name="id" column="id">
+		<id name="id" column="agentid">
 			<generator class="native" />
 		</id>
-		<property name="name" type="string" column="name" />
-		<property name="adresse" type="string" column="adresse" />
+		<property name="name" type="string" column="agentname" />
+		<property name="address" type="string" column="address" />
 		<property name="login" type="string" column="login" />
-		<property name="passwort" type="string" column="passwort" />
+		<property name="password" type="string" column="password" />
 		
-		<set name="immobilien" inverse="true">
-			<key column="verwalter" />
-			<one-to-many class="de.dis2013.data.Immobilie" />
+		<set name="estate" inverse="true">
+			<key column="agentid" />
+			<one-to-many class="de.dis2013.data.Estate" />
 		</set>
 	</class>
 </hibernate-mapping>
