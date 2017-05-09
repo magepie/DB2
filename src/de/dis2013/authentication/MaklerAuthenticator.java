@@ -33,7 +33,7 @@ public class MaklerAuthenticator implements Authenticator {
 		boolean ret;
 		
 		String login = FormUtil.readString("Makler-Login");
-		String password = FormUtil.readPassword("Passwort");
+		String password = FormUtil.readPassword("Password");
 		
 		Makler m = service.getMaklerByLogin(login);
 		
@@ -45,7 +45,7 @@ public class MaklerAuthenticator implements Authenticator {
 		lastAuthenticatedMakler = m;
 		
 		if(!ret)
-			FormUtil.showMessage("Benutzername oder Passwort falsch!");
+			FormUtil.showMessage("Incorrect Username and password!");
 		
 		return ret;
 	}

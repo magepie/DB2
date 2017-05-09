@@ -53,7 +53,7 @@ public class PropertiesFileAuthenticator implements Authenticator {
 		if(this.username.equals(username) && this.password.equals(password)) {
 			return true;
 		} else {
-			FormUtil.showMessage("Iconrrect Username and Password!");
+			FormUtil.showMessage("Incorrect Username and Password!");
 			return false;
 		}
 	}
