@@ -18,8 +18,15 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">create</property>
 
-		<mapping resource="de/dis2013/data/mapping/Person.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/Owner.hbm.xml" />
 		<mapping resource="de/dis2013/data/mapping/Makler.hbm.xml" />
-		<mapping resource="de/dis2013/data/mapping/Immobilie.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/Estate.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/Sales.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/PurchaseContract.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/House.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/Apartment.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/ApartmentRent.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/TenancyContract.hbm.xml" />
+		<mapping resource="de/dis2013/data/mapping/Contract.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
