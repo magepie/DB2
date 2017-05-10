@@ -2,13 +2,25 @@ package de.dis2013.data;
 
 import de.dis2013.util.Helper;
 
+import java.io.Serializable;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class House extends Estate{
+public class House extends Estate implements Serializable {
     private int floors;
     private int price;
     private int garden;
+    private Estate estate;
+
+
+    public Estate getEstate() {
+        return estate;
+    }
+
+    public void setEstate(Estate estate) {
+        this.estate = estate;
+    }
 
     public int getGarden() {
         return garden;
@@ -36,7 +48,7 @@ public class House extends Estate{
 
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result =  super.hashCode();
 
         result = prime * result + getFloors();
         result = prime * result + getGarden();

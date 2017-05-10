@@ -3,6 +3,7 @@ package de.dis2013.editor;
 import java.util.Set;
 
 import de.dis2013.core.ImmoService;
+import de.dis2013.data.Estate;
 import de.dis2013.data.House;
 import de.dis2013.data.Makler;
 import de.dis2013.data.Apartment;
@@ -10,11 +11,18 @@ import de.dis2013.menu.AppartmentSelectionMenu;
 import de.dis2013.menu.HouseSelectionMenu;
 import de.dis2013.menu.Menu;
 import de.dis2013.util.FormUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  * Klasse für die Menüs zur Verwaltung von Immobilien
  */
 public class ImmobilienEditor {
+
+	private SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+
+	private Session session = sessionFactory.openSession();
 	///Immobilienservice, der genutzt werden soll
 	private ImmoService service;
 	
@@ -84,16 +92,24 @@ public class ImmobilienEditor {
 	 * Abfrage der Daten für ein neues Haus
 	 */
 	public void newHouse() {
+		session.beginTransaction();
+		Estate e= new Estate();
 		House h = new House();
 		
-		h.setEstateaddress(FormUtil.readString("Address"));
-		h.setSquare_area(FormUtil.readInt("Square area"));
+		e.setEstateaddress(FormUtil.readString("Address"));
+		e.setSquare_area(FormUtil.readInt("Square area"));
 		h.setFloors(FormUtil.readInt("Floors"));
 		h.setPrice(FormUtil.readInt("Price"));
 		h.setGarden(FormUtil.readInt("Garden"));
-		h.setAgent(this.agent);
-		
+		e.setAgent(this.agent);
+
+		e.setHouse(h);
+		h.setEstate(e);
+		session.save(e);
+		session.getTransaction().commit();
+
 		service.addHouse(h);
+		service.addEstate(e);
 	}
 	
 	/**

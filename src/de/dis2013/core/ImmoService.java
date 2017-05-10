@@ -32,7 +32,7 @@ public class ImmoService {
 	private Set<Apartment> apartments = new HashSet<Apartment>();
 	private Set<TenancyContract> tenancyContracts = new HashSet<TenancyContract>();
 	private Set<PurchaseContract> purchaseContracts = new HashSet<PurchaseContract>();
-	
+	private Set<Estate> estates = new HashSet<>();
 	//Hibernate Session
 	private SessionFactory sessionFactory;
 	
@@ -108,7 +108,14 @@ public class ImmoService {
 	public void addMakler(Makler m) {
 		makler.add(m);
 	}
-	
+	public void addEstate(Estate e) {
+		estates.add(e);
+	}
+	public void deleteEstate(Estate e) {
+		estates.remove(e);
+	}
+
+
 	/**
 	 * Löscht einen Makler
 	 * @param m Der Makler
@@ -182,6 +189,19 @@ public class ImmoService {
 				return h;
 		}
 		
+		return null;
+	}
+
+	public Estate getEstateById(int id) {
+		Iterator<Estate> it = estates.iterator();
+
+		while(it.hasNext()) {
+			Estate e = it.next();
+
+			if(e.getEstateid() == id)
+				return e;
+		}
+
 		return null;
 	}
 	
@@ -400,7 +420,7 @@ public class ImmoService {
 		this.addMakler(m);
 		session.save(m);
 		session.getTransaction().commit();
-
+/*
 		session.beginTransaction();
 
 		Owner p1 = new Owner();
@@ -491,6 +511,6 @@ public class ImmoService {
 		mv.setStartDate("20/5/2006");
 		mv.setExtracharges(65);
 		mv.setDuration(36);
-		this.addTenancyContract(mv);
+		this.addTenancyContract(mv);*/
 	}
 }

@@ -5,7 +5,7 @@ import de.dis2013.util.Helper;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public abstract class Estate {
+public class Estate {
     private double square_area;
     private String estateaddress;
     private Makler agent;
