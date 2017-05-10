@@ -102,10 +102,10 @@ public class ContractEditor {
 	 */
 	public void newMietvertrag() {
 		//Alle Wohnungen des Maklers finden
-		Set<Apartment> apartments = service.getAllApartmentForMakler(makler);
+		Set<Estate> estates = service.getAllEstatesForMakler(makler);
 		
 		//Auswahlmenü für die Wohnungen 
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract", apartments);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract", estates);
 		int wid = asm.show();
 		
 		//Falls kein Abbruch: Auswahl der Person
@@ -142,10 +142,10 @@ public class ContractEditor {
 	 */
 	public void newKaufvertrag() {
 		//Alle Häuser des Maklers finden
-		Set<House> houses = service.getAllHaeuserForMakler(makler);
+		Set<Estate> estates = service.getAllEstatesForMakler(makler);
 		
 		//Auswahlmenü für das House
-		HouseSelectionMenu asm = new HouseSelectionMenu("Select House for Contract", houses);
+		HouseSelectionMenu asm = new HouseSelectionMenu("Select House for Contract", estates);
 		int hid = asm.show();
 		
 		//Falls kein Abbruch: Auswahl der Person

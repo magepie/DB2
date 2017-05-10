@@ -118,32 +118,33 @@ public class ImmobilienEditor {
 	 */
 	public void editHouse() {
 		//Alle Häuser suchen, die vom Makler verwaltet werden
-		Set<House> houses = service.getAllHaeuserForMakler(agent);
+		Set<Estate> estates = service.getAllEstatesForMakler(agent);
 		
 		//Auswahlmenü für das zu bearbeitende Haus
-		HouseSelectionMenu hsm = new HouseSelectionMenu("Liste der verwalteten Häuser", houses);
+		HouseSelectionMenu hsm = new HouseSelectionMenu("Liste der verwalteten Häuser", estates);
 		int id = hsm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus bearbeiten
 		if(id != HouseSelectionMenu.BACK) {
 			//Gewähltes Haus laden
 			House h = service.getHouseById(id);
+			Estate e= service.getEstateById(id);
 			
-			System.out.println("House "+h.getEstateaddress()+" is currently being processed. Empty entries leave the fields unchanged.");
+			System.out.println("House "+e.getEstateaddress()+" is currently being processed. Empty entries leave the fields unchanged.");
 			
 			//Neue Daten abfragen
-			String newOrt = FormUtil.readString("Address ("+h.getEstateaddress()+")");
-			int newFlaeche = FormUtil.readInt("Square Area ("+h.getSquare_area()+")");
+			String newOrt = FormUtil.readString("Address ("+e.getEstateaddress()+")");
+			int newFlaeche = FormUtil.readInt("Square Area ("+e.getSquare_area()+")");
 			int newStockwerke = FormUtil.readInt("Floors ("+h.getFloors()+")");
 			int newKaufpreis = FormUtil.readInt("Price ("+h.getPrice()+")");
 			int newGarten = FormUtil.readInt("Garden ("+h.getGarden()+")");
 			
 			//Neue Daten setzen
 			if(!newOrt.equals(""))
-				h.setEstateaddress(newOrt);
+				e.setEstateaddress(newOrt);
 			
 			if(newFlaeche != 0)
-				h.setSquare_area(newFlaeche);
+				e.setSquare_area(newFlaeche);
 			
 			if(newStockwerke != 0)
 				h.setFloors(newStockwerke);
@@ -161,16 +162,18 @@ public class ImmobilienEditor {
 	 */
 	public void deleteHouse() {
 		//Alle Häuser suchen, die vom Makler verwaltet werden
-		Set<House> houses = service.getAllHaeuserForMakler(agent);
+		Set<Estate> estates = service.getAllEstatesForMakler(agent);
 		
 		//Auswahlmenü für das zu bearbeitende Haus
-		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", houses);
+		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", estates);
 		int id = hsm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus löschen
 		if(id != HouseSelectionMenu.BACK) {
 			House h = service.getHouseById(id);
+			Estate e = service.getEstateById(id);
 			service.deleteHouse(h);
+			service.deleteEstate(e);
 		}
 	}
 	
@@ -178,17 +181,27 @@ public class ImmobilienEditor {
 	 * Abfrage der Daten für eine neue Wohnung
 	 */
 	public void newAppartment() {
+		session.beginTransaction();
+		Estate e= new Estate();
 		Apartment w = new Apartment();
 		
-		w.setEstateaddress(FormUtil.readString("Address"));
-		w.setSquare_area(FormUtil.readInt("Square Area"));
+		e.setEstateaddress(FormUtil.readString("Address"));
+		e.setSquare_area(FormUtil.readInt("Square Area"));
 		w.setFloor(FormUtil.readInt("Floors"));
 		w.setRent(FormUtil.readInt("Rent Price"));
 		w.setKitchen(FormUtil.readInt("Kitchen"));
 		w.setBalcony(FormUtil.readInt("Balcony"));
-		w.setAgent(this.agent);
-		
+		e.setAgent(this.agent);
+
 		service.addApartment(w);
+		service.addEstate(e);
+
+		e.setApartment(w);
+		w.setEstate(e);
+		session.save(e);
+		session.getTransaction().commit();
+
+
 	}
 	
 	/**
@@ -196,23 +209,26 @@ public class ImmobilienEditor {
 	 * und fragt anschließend die neuen Daten ab.
 	 */
 	public void editAppartment() {
+		session.beginTransaction();
+
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Apartment> apartments = service.getAllApartmentForMakler(agent);
-		
+		Set<Estate> estates = service.getAllEstatesForMakler(agent);
+
 		//Auswahlmenü für die zu bearbeitende Wohnung
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed Apartments", apartments);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed Apartments", estates);
 		int id = asm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung bearbeiten
 		if(id != AppartmentSelectionMenu.BACK) {
 			//Wohnung laden
 			Apartment w = service.getApartmentById(id);
+			Estate e= service.getEstateById(id);
 			
-			System.out.println("Apartment "+w.getEstateaddress()+" is currently being processed. Empty entries can leave fields unchanged.");
+			System.out.println("Apartment "+e.getEstateaddress()+" is currently being processed. Empty entries can leave fields unchanged.");
 			
 			//Neue Daten abfragen
-			String newOrt = FormUtil.readString("Address ("+w.getEstateaddress()+")");
-			int newFlaeche = FormUtil.readInt("Square Area ("+w.getSquare_area()+")");
+			String newOrt = FormUtil.readString("Address ("+e.getEstateaddress()+")");
+			int newFlaeche = FormUtil.readInt("Square Area ("+e.getSquare_area()+")");
 			int newStockwerk = FormUtil.readInt("Floor ("+w.getFloor()+")");
 			int newMietpreis = FormUtil.readInt("Rent Price ("+w.getRent()+")");
 			int newEbk = FormUtil.readInt("Kitchen ("+w.getKitchen() +")");
@@ -220,10 +236,10 @@ public class ImmobilienEditor {
 			
 			//Neue Daten setzen
 			if(!newOrt.equals(""))
-				w.setEstateaddress(newOrt);
+				e.setEstateaddress(newOrt);
 
 			if(newFlaeche != 0)
-				w.setSquare_area(newFlaeche);
+				e.setSquare_area(newFlaeche);
 			
 			if(newStockwerk != 0)
 				w.setFloor(newStockwerk);
@@ -243,16 +259,19 @@ public class ImmobilienEditor {
 	 */
 	public void deleteAppartment() {
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Apartment> apartments = service.getAllApartmentForMakler(agent);
+		Set<Estate> estates = service.getAllEstatesForMakler(agent);
 		
 		//Auswahlmenü für die zu bearbeitende Wohnung
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", apartments);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", estates);
 		int id = asm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung löschen
 		if(id != HouseSelectionMenu.BACK) {
 			Apartment w = service.getApartmentById(id);
+			Estate e = service.getEstateById(id);
+
 			service.deleteApartment(w);
+			service.deleteEstate(e);
 		}
 	}
 }

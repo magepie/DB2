@@ -1,9 +1,11 @@
 package de.dis2013.data;
 
+import java.io.Serializable;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class Apartment extends Estate{
+public class Apartment extends Estate implements Serializable{
     private Contract contractid;
     private Owner ownerid;
     private int floor;
@@ -11,6 +13,15 @@ public class Apartment extends Estate{
     private int rooms;
     private int kitchen;
     private int balcony;
+    private Estate estate;
+
+    public Estate getEstate() {
+        return estate;
+    }
+
+    public void setEstate(Estate estate) {
+        this.estate = estate;
+    }
 
     public int getBalcony() {
         return balcony;

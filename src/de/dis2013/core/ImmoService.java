@@ -233,13 +233,27 @@ public class ImmoService {
 		while(it.hasNext()) {
 			Apartment w = it.next();
 			
-			if(w.getAgent().equals(m))
+			if(w.getEstate().getAgent().equals(m))
 				ret.add(w);
 		}
 		
 		return ret;
 	}
-	
+
+	public Set<Estate> getAllEstatesForMakler(Makler m) {
+		Set<Estate> ret = new HashSet<Estate>();
+		Iterator<Estate> it = estates.iterator();
+
+		while(it.hasNext()) {
+			Estate e = it.next();
+
+			if(e.getAgent().equals(m))
+				ret.add(e);
+		}
+
+		return ret;
+	}
+
 	/**
 	 * Findet eine Wohnung mit gegebener ID
 	 * @param id Die ID

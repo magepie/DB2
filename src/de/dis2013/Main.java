@@ -46,6 +46,7 @@ public class Main {
 		MaklerAuthenticator ma = new MaklerAuthenticator(service);
 		
 		//Testdaten
+
 		service.addTestData();
 		
 		//Verarbeite Eingabe
