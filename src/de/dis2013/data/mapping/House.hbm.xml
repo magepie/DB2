@@ -6,10 +6,10 @@
     <class name="de.dis2013.data.House" table="house">
         <id name="estateid" column="id">
             <generator class="foreign">
-                <param name="property">estateid</param>
+                <param name="property">estate</param>
             </generator>
         </id>
-        <one-to-one name="estateid" class="de.dis2013.data.Estate" constrained="true"></one-to-one>
+        <one-to-one name="estate" class="de.dis2013.data.Estate" constrained="true"></one-to-one>
         <property name="floors" type="int" column="floors" />
         <property name="price" type="int" column="price" />
         <property name="garden" type="int" column="garden" />

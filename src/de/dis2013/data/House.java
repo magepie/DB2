@@ -5,12 +5,31 @@ import de.dis2013.util.Helper;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class House extends Estate{
+public class House{
     private int floors;
     private int price;
     private int garden;
+    private int estateid;
+    
+    private Estate estate;
 
-    public int getGarden() {
+    public int getEstateid() {
+		return estateid;
+	}
+
+	public void setEstateid(int estateid) {
+		this.estateid = estateid;
+	}
+
+	public Estate getEstate() {
+		return estate;
+	}
+
+	public void setEstate(Estate estate) {
+		this.estate = estate;
+	}
+
+	public int getGarden() {
         return garden;
     }
 

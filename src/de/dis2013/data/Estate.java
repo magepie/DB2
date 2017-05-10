@@ -5,29 +5,11 @@ import de.dis2013.util.Helper;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public abstract class Estate {
+public class Estate {
     private double square_area;
     private String estateaddress;
     private Makler agent;
     private int estateid=-1;
-    private Apartment Apartment;
-    private House House;
-
-    public House getHouse() {
-        return House;
-    }
-
-    public void setHouse(House house) {
-        House = house;
-    }
-
-    public Apartment getApartment() {
-        return Apartment;
-    }
-
-    public void setApartment(Apartment apartment) {
-        Apartment = apartment;
-    }
 
     public int getEstateid() {
         return estateid;

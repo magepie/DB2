@@ -160,7 +160,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			House h = it.next();
 			
-			if(h.getAgent().equals(m))
+			if(h.getEstate().getAgent().equals(m))
 				ret.add(h);
 		}
 		
@@ -213,7 +213,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			Apartment w = it.next();
 			
-			if(w.getAgent().equals(m))
+			if(w.getEstate().getAgent().equals(m))
 				ret.add(w);
 		}
 		
@@ -231,7 +231,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			Apartment w = it.next();
 			
-			if(w.getEstateid() == id)
+			if(w.getId() == id)
 				return w;
 		}
 		
@@ -294,7 +294,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			PurchaseContract k = it.next();
 			
-			if(k.getHouse().getAgent().equals(m))
+			if(k.getHouse().getEstate().getAgent().equals(m))
 				ret.add(k);
 		}
 		
@@ -330,7 +330,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			TenancyContract mv = it.next();
 			
-			if(mv.getApartment().getAgent().getId() == m.getId())
+			if(mv.getApartment().getEstate().getAgent().getId() == m.getId())
 				ret.add(mv);
 		}
 		
@@ -348,7 +348,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			PurchaseContract k = it.next();
 			
-			if(k.getHouse().getAgent().getId() == m.getId())
+			if(k.getHouse().getEstate().getAgent().getId() == m.getId())
 				ret.add(k);
 		}
 		
@@ -425,12 +425,15 @@ public class ImmoService {
 		//Hibernate Session erzeugen
 		session.beginTransaction();
 		House h = new House();
-		h.setEstateaddress("Hamburg, Vogt-Kölln-Straße");
-		h.setSquare_area(384);
+		Estate e = new Estate();
+		e.setEstateaddress("Hamburg, Vogt-Kölln-Straße");
+		e.setSquare_area(384);
 		h.setFloors(5);
 		h.setPrice(10000000);
 		h.setGarden(1);
-		h.setAgent(m);
+		e.setAgent(m);
+		
+		h.setEstate(e);
 		
 		session.save(h);
 		
@@ -451,27 +454,46 @@ public class ImmoService {
 		}
 		session.close();
 		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
 		Apartment w = new Apartment();
-		w.setEstateaddress("Hamburg");
+		e = new Estate();
+		e.setEstateaddress("Hamburg");
 		w.setRooms(3);
-		w.setSquare_area(120);
+		e.setSquare_area(120);
 		w.setFloor(4);
 		w.setRent(790);
 		w.setKitchen(1);
 		w.setBalcony(0);
-		w.setAgent(m);
+		e.setAgent(m);
+		w.setEstate(e);
+		
+		session.save(w);
 		this.addApartment(w);
 		
+		session.getTransaction().commit();
+		
+		session.beginTransaction();
+		
 		w = new Apartment();
-		w.setEstateaddress("Berlin");
-		w.setSquare_area(120);
+		e = new Estate();
+		e.setEstateaddress("Berlin");
+		e.setSquare_area(120);
 		w.setFloor(4);
 		w.setRent(790);
 		w.setKitchen(1);
 		w.setBalcony(1);
-		w.setAgent(m);
+		e.setAgent(m);
+		w.setEstate(e);
+		
+		session.save(w);
 		this.addApartment(w);
+		
+		session.getTransaction().commit();
 
+		session.beginTransaction();
+		
 		PurchaseContract kv = new PurchaseContract();
 		kv.setHouse(h);
 		kv.setOwner(p1);
@@ -481,6 +503,9 @@ public class ImmoService {
 		kv.setNumberofinstallments(5);
 		kv.setInterestrate(4);
 		this.addPurchaseContract(kv);
+		
+		session.save(kv);
+		session.getTransaction().commit();
 
 		TenancyContract mv = new TenancyContract();
 		mv.setApartment(w);
@@ -492,5 +517,7 @@ public class ImmoService {
 		mv.setExtracharges(65);
 		mv.setDuration(36);
 		this.addTenancyContract(mv);
+		
+		session.close();
 	}
 }

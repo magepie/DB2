@@ -3,7 +3,8 @@ package de.dis2013.data;
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class Apartment extends Estate{
+public class Apartment{
+	private int id;
     private Contract contractid;
     private Owner ownerid;
     private int floor;
@@ -11,6 +12,28 @@ public class Apartment extends Estate{
     private int rooms;
     private int kitchen;
     private int balcony;
+    
+    private Estate estate;
+    
+    public Estate getEstate() {
+		return estate;
+	}
+
+	public void setEstate(Estate estate) {
+		this.estate = estate;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Apartment(){
+    	
+    }
 
     public int getBalcony() {
         return balcony;
@@ -90,9 +113,10 @@ public class Apartment extends Estate{
 
         Apartment other = (Apartment) obj;
 
-        if(other.getEstateid() != getEstateid() ||
-                other.getEstateaddress() != getEstateaddress() ||
-                other.getSquare_area() != getSquare_area() ||
+        if(
+        		other.getEstate().getEstateid() != getEstate().getEstateid() ||
+                other.getEstate().getEstateaddress() != getEstate().getEstateaddress() ||
+                other.getEstate().getSquare_area() != getEstate().getSquare_area() ||
                 getFloor() != other.getFloor() ||
                 getRent() != other.getRent() ||
                 getRooms() != other.getRooms() ||
