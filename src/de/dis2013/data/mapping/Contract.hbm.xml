@@ -5,12 +5,13 @@
 <hibernate-mapping>
     <class name="de.dis2013.data.Contract" table="contract">
         <id name="contractid" column="id">
-            <generator class="increment" />
+            <generator class="identity" />
         </id>
         <property name="settelmentplace" type="string" column="settlemtnplace" />
         <property name="contractdate" type="string" column="contractdate" />
 
-        <!--one-to-one name="purchaseContract" class="de.dis2013.data.PurchaseContract" cascade="save-update"></one-to-one>
-        <one-to-one name="tenancyContract" class="de.dis2013.data.TenancyContract" cascade="save-update"></one-to-one-->
+        <one-to-one name="purchaseContract" class="de.dis2013.data.PurchaseContract" cascade="save-update"></one-to-one>
+        <one-to-one name="tenancyContract" class="de.dis2013.data.TenancyContract" cascade="save-update"></one-to-one>
+
     </class>
 </hibernate-mapping>

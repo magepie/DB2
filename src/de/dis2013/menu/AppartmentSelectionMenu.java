@@ -12,13 +12,13 @@ import de.dis2013.data.Estate;
 public class AppartmentSelectionMenu extends Menu {
 	public static final int BACK = -1;
 	
-	public AppartmentSelectionMenu(String title, Set<Estate> estates) {
+	public AppartmentSelectionMenu(String title, Set<Apartment> apartments) {
 		super(title);
 		
-		Iterator<Estate> it = estates.iterator();
+		Iterator<Apartment> it = apartments.iterator();
 		while(it.hasNext()) {
-			Estate w = it.next();
-			addEntry(w.getEstateaddress(),w.getEstateid());
+			Apartment w = it.next();
+			addEntry(w.getEstate().getEstateaddress(),w.getEstate().getEstateid());
 		}
 		addEntry("Back", BACK);
 	}

@@ -9,7 +9,7 @@
                 <param name="property">contract</param>
             </generator>
         </id>
-        <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
+        <one-to-one name="contract" foreign-key="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
         <property name="startDate" type="string" column="startDate" />
         <property name="duration" type="int" column="duration" />
         <property name="extracharges" type="int" column="extracharges" />

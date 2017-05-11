@@ -10,11 +10,17 @@ import de.dis2013.menu.HouseSelectionMenu;
 import de.dis2013.menu.Menu;
 import de.dis2013.menu.OwnerSelectionMenu;
 import de.dis2013.util.FormUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  * Klasse für die Menüs zur Verwaltung von Verträgen
  */
 public class ContractEditor {
+	private SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+
+	private Session session = sessionFactory.openSession();
 	///Immobilien-Service, der genutzt werden soll
 	private ImmoService service;
 	
@@ -102,10 +108,11 @@ public class ContractEditor {
 	 */
 	public void newMietvertrag() {
 		//Alle Wohnungen des Maklers finden
-		Set<Estate> estates = service.getAllEstatesForMakler(makler);
+		session.beginTransaction();
+		Set<Apartment> apartments = service.getAllApartmentForMakler(makler);
 		
 		//Auswahlmenü für die Wohnungen 
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract", estates);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Choose apartment for Contract", apartments);
 		int wid = asm.show();
 		
 		//Falls kein Abbruch: Auswahl der Person
@@ -120,18 +127,29 @@ public class ContractEditor {
 			//Falls kein Abbruch: Vertragsdaten abfragen und Vertrag anlegen
 			if(pid != OwnerSelectionMenu.BACK) {
 				TenancyContract m = new TenancyContract();
-		
-				m.setApartment(service.getApartmentById(wid));
-				m.setOwner(service.getOwnerById(pid));
-				m.setContractid(FormUtil.readInt("Contract ID"));
-				m.setContractdate(FormUtil.readString("Date"));
-				m.setSettelmentplace(FormUtil.readString("Settlement Place"));
+				Contract c= new Contract();
+				ApartmentRent r = new ApartmentRent();
+
+				r.setEstate(service.getEstateById(wid));
+				r.setOwner(service.getOwnerById(pid));
+				c.setContractid(FormUtil.readInt("ContractID"));
+
+				c.setContractdate(FormUtil.readString("Date"));
+				c.setSettelmentplace(FormUtil.readString("Settlement Place"));
 				m.setStartDate(FormUtil.readString("Start Date"));
 				m.setDuration(FormUtil.readInt("Duration in Months"));
 				m.setExtracharges(FormUtil.readInt("Extra costs"));
-				
+
+				r.setContract(c);
+				c.setApRent(r);
+				m.setContract(c);
+				c.setTenancyContract(m);
+
 				service.addTenancyContract(m);
-				
+				service.addContract(c);
+				session.save(c);
+
+				session.getTransaction().commit();
 				System.out.println("Tenancy contract with ID "+m.getContractid()+" has been created.");
 			}
 		}
@@ -141,11 +159,12 @@ public class ContractEditor {
 	 * Menü zum anlegen eines neuen Kaufvertrags
 	 */
 	public void newKaufvertrag() {
+		session.beginTransaction();
 		//Alle Häuser des Maklers finden
-		Set<Estate> estates = service.getAllEstatesForMakler(makler);
+		Set<House> houses = service.getAllHaeuserForMakler(makler);
 		
 		//Auswahlmenü für das House
-		HouseSelectionMenu asm = new HouseSelectionMenu("Select House for Contract", estates);
+		HouseSelectionMenu asm = new HouseSelectionMenu("Select House for Contract", houses);
 		int hid = asm.show();
 		
 		//Falls kein Abbruch: Auswahl der Person
@@ -160,17 +179,27 @@ public class ContractEditor {
 			//Falls kein Abbruch: Vertragsdaten abfragen und Vertrag anlegen
 			if(pid != OwnerSelectionMenu.BACK) {
 				PurchaseContract k = new PurchaseContract();
-		
-				k.setHouse(service.getHouseById(hid));
-				k.setOwner(service.getOwnerById(pid));
-				k.setContractid(FormUtil.readInt("Contract ID"));
-				k.setContractdate(FormUtil.readString("Date"));
-				k.setSettelmentplace(FormUtil.readString("Settlement Place"));
+				Contract c= new Contract();
+				Sales p = new Sales();
+
+				p.setEstate(service.getHouseById(hid));
+				p.setOwner(service.getOwnerById(pid));
+				c.setContractid(FormUtil.readInt("ContractID"));
+				c.setContractdate(FormUtil.readString("Date"));
+				c.setSettelmentplace(FormUtil.readString("Settlement Place"));
 				k.setNumberofinstallments(FormUtil.readInt("Number of Installments"));
 				k.setInterestrate(FormUtil.readInt("Interest Rate"));
-				
+
+				p.setContract(c);
+				c.setSale(p);
+				k.setContract(c);
+				c.setPurchaseContract(k);
+
 				service.addPurchaseContract(k);
-				
+
+				session.save(c);
+				session.getTransaction().commit();
+
 				System.out.println("Purchase contract with ID "+k.getContractid()+" has been created.");
 			}
 		}

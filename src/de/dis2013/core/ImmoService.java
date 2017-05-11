@@ -5,17 +5,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.dis2013.data.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import de.dis2013.data.House;
-import de.dis2013.data.Estate;
-import de.dis2013.data.PurchaseContract;
-import de.dis2013.data.Makler;
-import de.dis2013.data.TenancyContract;
-import de.dis2013.data.Owner;
-import de.dis2013.data.Apartment;
 
 /**
  * Klasse zur Verwaltung aller Datenbank-Entitäten.
@@ -33,6 +26,7 @@ public class ImmoService {
 	private Set<TenancyContract> tenancyContracts = new HashSet<TenancyContract>();
 	private Set<PurchaseContract> purchaseContracts = new HashSet<PurchaseContract>();
 	private Set<Estate> estates = new HashSet<>();
+	private Set<Contract> contracts= new HashSet<>();
 	//Hibernate Session
 	private SessionFactory sessionFactory;
 	
@@ -115,6 +109,38 @@ public class ImmoService {
 		estates.remove(e);
 	}
 
+	public void addContract(Contract c) {
+		contracts.add(c);
+	}
+	public void deleteContract(Contract c) {contracts.remove(c);
+	}
+
+	public Set<Contract> getAllContractsForMakler(Makler m) {
+		Set<Contract> ret = new HashSet<Contract>();
+		Iterator<Contract> it = contracts.iterator();
+
+		while(it.hasNext()) {
+			Contract c = it.next();
+
+			if(c.getAgent().equals(m))
+				ret.add(c);
+		}
+
+		return ret;
+	}
+
+	public Contract getContractById(int id) {
+		Iterator<Contract> it = contracts.iterator();
+
+		while(it.hasNext()) {
+			Contract c = it.next();
+
+			if(c.getContractid() == id)
+				return c;
+		}
+
+		return null;
+	}
 
 	/**
 	 * Löscht einen Makler
@@ -167,7 +193,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			House h = it.next();
 			
-			if(h.getAgent().equals(m))
+			if(h.getEstate().getAgent().equals(m))
 				ret.add(h);
 		}
 		
@@ -240,19 +266,6 @@ public class ImmoService {
 		return ret;
 	}
 
-	public Set<Estate> getAllEstatesForMakler(Makler m) {
-		Set<Estate> ret = new HashSet<Estate>();
-		Iterator<Estate> it = estates.iterator();
-
-		while(it.hasNext()) {
-			Estate e = it.next();
-
-			if(e.getAgent().equals(m))
-				ret.add(e);
-		}
-
-		return ret;
-	}
 
 	/**
 	 * Findet eine Wohnung mit gegebener ID
@@ -328,7 +341,7 @@ public class ImmoService {
 		while(it.hasNext()) {
 			PurchaseContract k = it.next();
 			
-			if(k.getHouse().getAgent().equals(m))
+			if(k.getAgent().equals(m))
 				ret.add(k);
 		}
 		

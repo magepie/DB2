@@ -12,13 +12,13 @@ import de.dis2013.data.House;
 public class HouseSelectionMenu extends Menu {
 	public static final int BACK = -1;
 	
-	public HouseSelectionMenu(String title, Set<Estate> houses) {
+	public HouseSelectionMenu(String title, Set<House> houses) {
 		super(title);
 		
-		Iterator<Estate> it = houses.iterator();
+		Iterator<House> it = houses.iterator();
 		while(it.hasNext()) {
-			Estate h = it.next();
-			addEntry(h.getEstateaddress(), h.getEstateid());
+			House h = it.next();
+			addEntry(h.getEstate().getEstateaddress(), h.getEstate().getEstateid());
 		}
 		addEntry("Back", BACK);
 	}

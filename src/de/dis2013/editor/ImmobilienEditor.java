@@ -117,11 +117,13 @@ public class ImmobilienEditor {
 	 * und fragt anschließend die neuen Daten ab.
 	 */
 	public void editHouse() {
+		session.beginTransaction();
+
 		//Alle Häuser suchen, die vom Makler verwaltet werden
-		Set<Estate> estates = service.getAllEstatesForMakler(agent);
+		Set<House> houses = service.getAllHaeuserForMakler(agent);
 		
 		//Auswahlmenü für das zu bearbeitende Haus
-		HouseSelectionMenu hsm = new HouseSelectionMenu("Liste der verwalteten Häuser", estates);
+		HouseSelectionMenu hsm = new HouseSelectionMenu("Liste der verwalteten Häuser", houses);
 		int id = hsm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus bearbeiten
@@ -153,6 +155,12 @@ public class ImmobilienEditor {
 				h.setPrice(newKaufpreis);
 			if(newGarten!=0)
 				h.setGarden(newGarten);
+
+			e.setHouse(h);
+			h.setEstate(e);
+
+			session.save(e);
+			session.getTransaction().commit();
 		}
 	}
 	
@@ -161,11 +169,13 @@ public class ImmobilienEditor {
 	 * entsprechende Haus nach Auswahl
 	 */
 	public void deleteHouse() {
+		session.beginTransaction();
+
 		//Alle Häuser suchen, die vom Makler verwaltet werden
-		Set<Estate> estates = service.getAllEstatesForMakler(agent);
+		Set<House> houses = service.getAllHaeuserForMakler(agent);
 		
 		//Auswahlmenü für das zu bearbeitende Haus
-		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", estates);
+		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", houses);
 		int id = hsm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Haus löschen
@@ -174,6 +184,9 @@ public class ImmobilienEditor {
 			Estate e = service.getEstateById(id);
 			service.deleteHouse(h);
 			service.deleteEstate(e);
+			session.save(h);
+			session.save(e);
+			session.getTransaction().commit();
 		}
 	}
 	
@@ -212,10 +225,10 @@ public class ImmobilienEditor {
 		session.beginTransaction();
 
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Estate> estates = service.getAllEstatesForMakler(agent);
+		Set<Apartment> apartments = service.getAllApartmentForMakler(agent);
 
 		//Auswahlmenü für die zu bearbeitende Wohnung
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed Apartments", estates);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed Apartments", apartments);
 		int id = asm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung bearbeiten
@@ -250,6 +263,11 @@ public class ImmobilienEditor {
 				w.setKitchen(newEbk);
 			if(newBalkon != 0)
 				w.setBalcony(newBalkon);
+			e.setApartment(w);
+			w.setEstate(e);
+			session.save(e);
+			session.getTransaction().commit();
+
 		}
 	}
 	
@@ -258,11 +276,13 @@ public class ImmobilienEditor {
 	 * entsprechende Wohnung nach Auswahl
 	 */
 	public void deleteAppartment() {
+		session.beginTransaction();
+
 		//Alle Wohnungen suchen, die vom Makler verwaltet werden
-		Set<Estate> estates = service.getAllEstatesForMakler(agent);
+		Set<Apartment> apartments = service.getAllApartmentForMakler(agent);
 		
 		//Auswahlmenü für die zu bearbeitende Wohnung
-		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", estates);
+		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", apartments);
 		int id = asm.show();
 		
 		//Falls nicht der Eintrag "zurück" gewählt wurde, Wohnung löschen
@@ -272,6 +292,10 @@ public class ImmobilienEditor {
 
 			service.deleteApartment(w);
 			service.deleteEstate(e);
+			session.save(w);
+			session.save(e);
+			session.getTransaction().commit();
+
 		}
 	}
 }

@@ -2,13 +2,24 @@ package de.dis2013.data;
 
 import de.dis2013.util.Helper;
 
+import java.io.Serializable;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class PurchaseContract extends Contract{
+public class PurchaseContract extends Contract implements Serializable{
     private int numberofinstallments;
     private double interestrate;
     private House house;
+    private Contract contract;
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 
     public House getHouse() {
         return house;
@@ -38,7 +49,7 @@ public class PurchaseContract extends Contract{
 
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result = super.hashCode();
 
         result = prime * result + getNumberofinstallments();
         result = (int) (prime * result + getInterestrate());

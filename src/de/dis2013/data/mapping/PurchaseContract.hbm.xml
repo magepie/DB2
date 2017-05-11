@@ -11,6 +11,8 @@
         </id>
         <property name="numberofinstallments" type="integer" column="numberofinstallments" />
         <property name="interestrate" type="double" column="interestrate" />
-        <one-to-one name="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
+        <one-to-one name="contract" foreign-key="contractid" class="de.dis2013.data.Contract" constrained="true"></one-to-one>
+        <one-to-one name="sale" foreign-key="contractid" class="de.dis2013.data.Sales" constrained="true"></one-to-one>
+
     </class>
 </hibernate-mapping>

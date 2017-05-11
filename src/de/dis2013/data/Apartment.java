@@ -101,8 +101,7 @@ public class Apartment extends Estate implements Serializable{
 
         Apartment other = (Apartment) obj;
 
-        if(other.getEstateid() != getEstateid() ||
-                other.getEstateaddress() != getEstateaddress() ||
+        if(other.getEstateaddress() != getEstateaddress() ||
                 other.getSquare_area() != getSquare_area() ||
                 getFloor() != other.getFloor() ||
                 getRent() != other.getRent() ||

@@ -2,14 +2,25 @@ package de.dis2013.data;
 
 import de.dis2013.util.Helper;
 
+import java.io.Serializable;
+
 /**
  * Created by nxirakia on 08.05.17.
  */
-public class TenancyContract extends Contract {
+public class TenancyContract extends Contract implements Serializable{
     private String startDate;
     private int duration;
     private int extracharges;
     private Apartment apartment;
+    private Contract contract;
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 
 
     public void setApartment(Apartment apartment){this.apartment=apartment;}
@@ -44,7 +55,7 @@ public class TenancyContract extends Contract {
 
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result = super.hashCode();
 
         result = prime * result + getExtracharges();
         result = prime * result + getDuration();

@@ -5,7 +5,7 @@ import de.dis2013.util.Helper;
 /**
  * Created by nxirakia on 03.05.17.
  */
-public abstract class Contract {
+public class Contract {
     //contract info
 
     private int contractid= -1;
@@ -13,6 +13,42 @@ public abstract class Contract {
     private String settelmentplace;
     private Makler agent;
     private Owner owner;
+    private PurchaseContract purchaseContract;
+    private TenancyContract tenancyContract;
+    private Sales sale;
+    private ApartmentRent apRent;
+
+    public ApartmentRent getApRent() {
+        return apRent;
+    }
+
+    public void setApRent(ApartmentRent apRent) {
+        this.apRent = apRent;
+    }
+
+    public Sales getSale() {
+        return sale;
+    }
+
+    public void setSale(Sales sale) {
+        this.sale = sale;
+    }
+
+    public TenancyContract getTenancyContract() {
+        return tenancyContract;
+    }
+
+    public void setTenancyContract(TenancyContract tenancyContract) {
+        this.tenancyContract = tenancyContract;
+    }
+
+    public PurchaseContract getPurchaseContract() {
+        return purchaseContract;
+    }
+
+    public void setPurchaseContract(PurchaseContract purchaseContract) {
+        this.purchaseContract = purchaseContract;
+    }
 
     public Owner getOwner() {
         return owner;
